@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Markdown | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="本篇文章是关于本站博客文章的Markdown格式的文档。">
+<meta name="keywords" content="Markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown">
+<meta property="og:url" content="http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="本篇文章是关于本站博客文章的Markdown格式的文档。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oqcytejyk.bkt.clouddn.com/lynx.jpg">
+<meta property="og:updated_time" content="2017-10-09T07:13:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Markdown">
+<meta name="twitter:description" content="本篇文章是关于本站博客文章的Markdown格式的文档。">
+<meta name="twitter:image" content="http://oqcytejyk.bkt.clouddn.com/lynx.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2014-12-25-markdown-programming-language" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+            
+	
+		<img src="http://oqcytejyk.bkt.clouddn.com/lynx.jpg" class="article-banner" />
+	
+
+
+
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Markdown
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2014/12/25/2014-12-25-markdown-programming-language.html">
+            <time datetime="2014-12-24T16:31:00.000Z" itemprop="datePublished">2014-12-25</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Markdown/">Markdown</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <p>本篇文章是关于本站博客文章的Markdown格式的文档。<br><a id="more"></a></p>
+<ul>
+<li><a href="#block-elements">段落元素</a><ul>
+<li><a href="#paragraphs-and-line-breaks">p和br</a></li>
+<li><a href="#headers">标题</a></li>
+<li><a href="#blockquotes">段落引用</a></li>
+<li><a href="#lists">列表</a></li>
+<li><a href="#code-blocks">代码</a></li>
+<li><a href="#horizontal-rules">Horizontal Rules</a></li>
+<li><a href="#table">表格</a></li>
+</ul>
+</li>
+<li><a href="#span-elements">段内元素</a><ul>
+<li><a href="#links">链接</a></li>
+<li><a href="#emphasis">强调</a></li>
+<li><a href="#code">代码</a></li>
+<li><a href="#images">图片</a></li>
+</ul>
+</li>
+<li><a href="#miscellaneous">混杂模式</a><ul>
+<li><a href="#automatic-links">自动链接</a></li>
+<li><a href="#backslash-escapes">Backslash Escapes</a></li>
+</ul>
+</li>
+<li><a href="#inline-html">内联HTML</a></li>
+</ul>
+<!-- more -->
+<h2 id="Block-Elements"><a href="#Block-Elements" class="headerlink" title="Block Elements"></a>Block Elements</h2><h3 id="Paragraphs-and-Line-Breaks"><a href="#Paragraphs-and-Line-Breaks" class="headerlink" title="Paragraphs and Line Breaks"></a>Paragraphs and Line Breaks</h3><h4 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h4><p>HTML标签: <code>&lt;p&gt;</code></p>
+<p>在一段后进行回车空出一行可以达到该效果。</p>
+<p>代码:</p>
+<pre><code>This will be
+inline.
+
+This is second paragraph.
+</code></pre><p>预览:</p>
+<hr>
+<p>This will be<br>inline.</p>
+<p>This is second paragraph.</p>
+<hr>
+<h3 id="Headers"><a href="#Headers" class="headerlink" title="Headers"></a>Headers</h3><p>Markdown支持两种方式的标题：Setext/atx.</p>
+<h4 id="Setext"><a href="#Setext" class="headerlink" title="Setext"></a>Setext</h4><p>HTML标签: <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code></p>
+<p>使用等号‘=’在标题下划线代表<code>&lt;h1&gt;</code>， 使用连字符‘-’在标题下划线表示 <code>&lt;h2&gt;</code>，其中符号的数量可以不做限制.</p>
+<p>代码:</p>
+<pre><code>This is an H1
+=============
+This is an H2
+-------------
+</code></pre><p>预览:</p>
+<hr>
+<h1 id="This-is-an-H1"><a href="#This-is-an-H1" class="headerlink" title="This is an H1"></a>This is an H1</h1><h2 id="This-is-an-H2"><a href="#This-is-an-H2" class="headerlink" title="This is an H2"></a>This is an H2</h2><hr>
+<h4 id="atx"><a href="#atx" class="headerlink" title="atx"></a>atx</h4><p>HTML标签: <code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;h4&gt;</code>, <code>&lt;h5&gt;</code>, <code>&lt;h6&gt;</code></p>
+<p>使用1到6个‘#’号来表示标题标签 <code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code>.</p>
+<p>代码:</p>
+<pre><code># This is an H1
+## This is an H2
+###### This is an H6
+</code></pre><p>预览:</p>
+<hr>
+<h1 id="This-is-an-H1-1"><a href="#This-is-an-H1-1" class="headerlink" title="This is an H1"></a>This is an H1</h1><h2 id="This-is-an-H2-1"><a href="#This-is-an-H2-1" class="headerlink" title="This is an H2"></a>This is an H2</h2><h6 id="This-is-an-H6"><a href="#This-is-an-H6" class="headerlink" title="This is an H6"></a>This is an H6</h6><hr>
+<p>atx格式的标题可以进行闭合如<code>### This is an H3 ######</code>，可见两端的‘#’号数量不需要相等。</p>
+<h3 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h3><p>HTML标签: <code>&lt;blockquote&gt;</code></p>
+<p>需要再每一个段落之前加‘&gt;’符号来形成段落引用。</p>
+<p>Code:</p>
+<pre><code>&gt; This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+&gt; &gt; This is nested blockquote.
+&gt; Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+&gt;
+&gt; id sem consectetuer libero luctus adipiscing.
+</code></pre><p>Preview:</p>
+<hr>
+<blockquote>
+<p>This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,</p>
+<blockquote>
+<p> This is nested blockquote.</p>
+</blockquote>
+<p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>
+<p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse</p>
+<hr>
+</blockquote>
+<h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><p>Markdown支持有序和无序列表。</p>
+<h4 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h4><p>HTML标签: <code>&lt;ul&gt;</code></p>
+<p>无序列表可以使用‘*’、‘+’、‘-’三种符号开头并在符号后添加一个空格。</p>
+<p>代码:</p>
+<pre><code>*   Red
++   Green
+—   Blue
+</code></pre><p>预览:</p>
+<hr>
+<ul>
+<li>Red</li>
+</ul>
+<ul>
+<li>Green</li>
+</ul>
+<ul>
+<li>Blue</li>
+</ul>
+<h4 id="Ordered"><a href="#Ordered" class="headerlink" title="Ordered"></a>Ordered</h4><p>HTML标签: <code>&lt;ol&gt;</code></p>
+<p>有序列表通过数字和点符号‘.’以及空格开头来表示，前面的数字是几无所谓，会自动解析成从小到大的顺序。</p>
+<p>代码:</p>
+<pre><code>1.  Bird
+22.  McHale
+3.  Parish
+44\. Cat
+</code></pre><p>预览:</p>
+<hr>
+<ol>
+<li>Bird</li>
+<li>McHale</li>
+<li>Parish<br>44.  Cat</li>
+</ol>
+<hr>
+<h4 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h4><p>段落级别的缩进使用tab添加在段落之前即可。</p>
+<h3 id="Code-Blocks"><a href="#Code-Blocks" class="headerlink" title="Code Blocks"></a>Code Blocks</h3><p>HTML标签: <code>&lt;pre&gt;</code></p>
+<p>代码的每一行都缩进至少‘4个空格’和‘1个tab’，代码结束是以第一个不缩进的段落为止。</p>
+<p>代码:</p>
+<pre><code>This is a normal paragraph:
+
+    This is a code block.
+</code></pre><p>代码:</p>
+<hr>
+<p>This is a normal paragraph:</p>
+<pre><code>This is a code block.
+</code></pre><hr>
+<h4 id="包裹代码"><a href="#包裹代码" class="headerlink" title="包裹代码"></a>包裹代码</h4><p>可以使用`*3后跟语法名称来进行代码的包裹，从而避免每一行的缩进并可以进行语法高亮。</p>
+<p>代码:</p>
+<pre><code>Here&apos;s an example:
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"notice the blank line before this function?"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>预览:</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function test() &#123;</div><div class="line">  console.log(&quot;notice the blank line before this function?&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Horizontal-Rules"><a href="#Horizontal-Rules" class="headerlink" title="Horizontal Rules"></a>Horizontal Rules</h3><p>HTML Tag: <code>&lt;hr /&gt;</code><br>分界线可以使用’*‘、’-‘、’_’</p>
+<p>代码:</p>
+<pre><code>* * *
+***
+*****
+- - -
+---------------------------------------
+___
+</code></pre><p>预览:</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title="- - -"></a>- - -</h2><hr>
+<hr>
+<h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><p>HTML标签: <code>&lt;table&gt;</code></p>
+<p>表格使用‘|’、‘:’、‘-’三种符号进行构造，其中‘-’符号必须有至少3个才能构造表格。<br>代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">| Left | Center | Right |</div><div class="line">|:-----|:------:|------:|</div><div class="line">|aaa   |bbb     |ccc    |</div><div class="line">|ddd   |eee     |fff    |</div><div class="line"></div><div class="line">A |B</div><div class="line">--|--</div><div class="line">12|45</div></pre></td></tr></table></figure>
+<p>预览:</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Left</th>
+<th style="text-align:center">Center</th>
+<th style="text-align:right">Right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">aaa</td>
+<td style="text-align:center">bbb</td>
+<td style="text-align:right">ccc</td>
+</tr>
+<tr>
+<td style="text-align:left">ddd</td>
+<td style="text-align:center">eee</td>
+<td style="text-align:right">fff</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>45</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="Span-Elements"><a href="#Span-Elements" class="headerlink" title="Span Elements"></a>Span Elements</h2><h3 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h3><p>HTML标签: <code>&lt;a&gt;</code></p>
+<p>Markdown支持两种类型的链接：内联在段落中和引用模式.</p>
+<h4 id="内联"><a href="#内联" class="headerlink" title="内联"></a>内联</h4><p>内联在段落中<code>[Link Text](URL &quot;Title&quot;)</code>，如果是在本站的网址，可以使用相对地址进行访问。</p>
+<p>代码:</p>
+<pre><code>This is [an example](http://example.com/ &quot;Title&quot;) inline link.
+
+See my [About](/about/) page for details.
+</code></pre><p>预览:</p>
+<hr>
+<p>This is <a href="http://example.com/" title="Title" target="_blank" rel="external">an example</a> inline link.</p>
+<p>See my <a href="/about/">About</a> page for details.</p>
+<hr>
+<h4 id="参考引用"><a href="#参考引用" class="headerlink" title="参考引用"></a>参考引用</h4><p>参考链接的形式如此：<code>[id]: URL &quot;Title&quot;</code></p>
+<p>代码:</p>
+<pre><code>[id]: http://example.com/  &quot;Optional Title Here&quot;
+This is [an example][id] reference-style link.
+</code></pre><p>预览:</p>
+<hr>
+<p>This is <a href="http://example.com/" title="Optional Title Here" target="_blank" rel="external">an example</a> reference-style link.</p>
+<hr>
+<h3 id="Emphasis"><a href="#Emphasis" class="headerlink" title="Emphasis"></a>Emphasis</h3><p>HTML标签: <code>&lt;em&gt;</code>, <code>&lt;strong&gt;</code></p>
+<p>Markdown使用‘*’、‘_’符号进行斜体的标注，‘**’、‘__’符号进行粗体的标注，如果直接使用‘*’符号可以加‘\’进行转义。</p>
+<p>代码:</p>
+<pre><code>*single asterisks*
+_single underscores_
+**double asterisks**
+__double underscores__
+</code></pre><p>预览:</p>
+<hr>
+<p><em>single asterisks</em></p>
+<p><em>single underscores</em></p>
+<p><strong>double asterisks</strong></p>
+<p><strong>double underscores</strong></p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>HTML标签: <code>&lt;code&gt;</code></p>
+<p>使用‘`’来对内联的代码进行包裹，<strong>backtick quotes (`)</strong>.</p>
+<p>Code:</p>
+<pre><code>Use the `printf()` function.
+</code></pre><p>Preview:</p>
+<hr>
+<p>Use the <code>printf()</code> function.</p>
+<hr>
+<h3 id="Images"><a href="#Images" class="headerlink" title="Images"></a>Images</h3><p>HTML标签: <code>&lt;img /&gt;</code></p>
+<p>Markdown支持内联和参考引用两种方式进行图片的添加。</p>
+<h4 id="内联-1"><a href="#内联-1" class="headerlink" title="内联"></a>内联</h4><p>内联图片代码如此： <code>![Alt text](URL &quot;Title&quot;)</code>，其中title是可选的一项。</p>
+<p>代码:</p>
+<pre><code>![Alt text](/path/to/img.jpg)
+
+![Alt text](/path/to/img.jpg &quot;Optional title&quot;)
+</code></pre><h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p>参考引用方式的代码如此： <code>![Alt text][id]</code></p>
+<p>代码:</p>
+<pre><code>[img id]: url/to/image  &quot;Optional title attribute&quot;
+![Alt text][img id]
+</code></pre><h2 id="Miscellaneous"><a href="#Miscellaneous" class="headerlink" title="Miscellaneous"></a>Miscellaneous</h2><h3 id="Automatic-Links"><a href="#Automatic-Links" class="headerlink" title="Automatic Links"></a>Automatic Links</h3><p>使用‘&lt; &gt;’符号将链接包裹形成自动链接。</p>
+<p>代码:</p>
+<pre><code>&lt;http://example.com/&gt;
+
+&lt;address@example.com&gt;
+</code></pre><p>预览:</p>
+<hr>
+<p><a href="http://example.com/" target="_blank" rel="external">http://example.com/</a></p>
+<p><a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#97;&#x64;&#100;&#x72;&#x65;&#115;&#115;&#64;&#x65;&#120;&#97;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#111;&#x6d;">&#97;&#x64;&#100;&#x72;&#x65;&#115;&#115;&#64;&#x65;&#120;&#97;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#111;&#x6d;</a></p>
+<hr>
+<h3 id="Backslash-Escapes"><a href="#Backslash-Escapes" class="headerlink" title="Backslash Escapes"></a>Backslash Escapes</h3><p>使用反斜线来进行某些符号的转义</p>
+<p>代码:</p>
+<pre><code>\*literal asterisks\*
+</code></pre><p>预览:</p>
+<hr>
+<p>*literal asterisks*</p>
+<hr>
+<p>支持以下符号:</p>
+<p>Code:</p>
+<pre><code>\   backslash
+`   backtick
+*   asterisk
+_   underscore
+{}  curly braces
+[]  square brackets
+()  parentheses
+#   hash mark
++   plus sign
+-   minus sign (hyphen)
+.   dot
+!   exclamation mark
+</code></pre><h2 id="Inline-HTML"><a href="#Inline-HTML" class="headerlink" title="Inline HTML"></a>Inline HTML</h2><p>如果需要一些HTML中的标签而Markdown中没有的，可以直接使用HTML标签进行包裹使用。</p>
+<p>代码:</p>
+<pre><code>This is a regular paragraph.
+
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Foo&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+This is another regular paragraph.
+</code></pre><p>预览:</p>
+<hr>
+<p>This is a regular paragraph.</p>
+<table><br>    <tr><br>        <td>Foo</td><br>    </tr><br></table>
+
+<p>This is another regular paragraph.</p>
+<hr>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html" data-id="cj8juni880000px90pues7yuy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2015/09/21/2015-11-20-jena-learning-note.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Jena学习笔记
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

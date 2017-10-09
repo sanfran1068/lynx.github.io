@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>使用Leaflet插件在浏览器加载地图 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="在公司实习的第一个项目就与地图和数据可视化相关，这让从来没有接触过地图API、加载工具以及相关开发的我一开始都有些手足无措。之后技术路线慢慢定下来，在浏览器中加载腾讯地图的瓦片地图，并在该地图上添加热力图等可视化图表。 在经过一番简单的调研之后，在浏览器加载地图无非是采用相应地图公司开发的JavaScript API，或者加载在线/离线瓦片地图。后者由于要使用第三方的插件或者自己开发的工具进行加载">
+<meta name="keywords" content="JavaScript,Leaflet,Map,腾讯地图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Leaflet插件在浏览器加载地图">
+<meta property="og:url" content="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="在公司实习的第一个项目就与地图和数据可视化相关，这让从来没有接触过地图API、加载工具以及相关开发的我一开始都有些手足无措。之后技术路线慢慢定下来，在浏览器中加载腾讯地图的瓦片地图，并在该地图上添加热力图等可视化图表。 在经过一番简单的调研之后，在浏览器加载地图无非是采用相应地图公司开发的JavaScript API，或者加载在线/离线瓦片地图。后者由于要使用第三方的插件或者自己开发的工具进行加载">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oqcytejyk.bkt.clouddn.com/map.jpg">
+<meta property="og:updated_time" content="2017-10-09T07:13:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Leaflet插件在浏览器加载地图">
+<meta name="twitter:description" content="在公司实习的第一个项目就与地图和数据可视化相关，这让从来没有接触过地图API、加载工具以及相关开发的我一开始都有些手足无措。之后技术路线慢慢定下来，在浏览器中加载腾讯地图的瓦片地图，并在该地图上添加热力图等可视化图表。 在经过一番简单的调研之后，在浏览器加载地图无非是采用相应地图公司开发的JavaScript API，或者加载在线/离线瓦片地图。后者由于要使用第三方的插件或者自己开发的工具进行加载">
+<meta name="twitter:image" content="http://oqcytejyk.bkt.clouddn.com/map.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2017-06-12-using-leaflet-to-load-map" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+            
+	
+		<img src="http://oqcytejyk.bkt.clouddn.com/map.jpg" class="article-banner" />
+	
+
+
+
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            使用Leaflet插件在浏览器加载地图
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/06/12/2017-06-12-using-leaflet-to-load-map.html">
+            <time datetime="2017-06-12T04:00:00.000Z" itemprop="datePublished">2017-06-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Toolkit/">Toolkit</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/Leaflet/">Leaflet</a>, <a class="tag-link" href="/tags/Map/">Map</a>, <a class="tag-link" href="/tags/腾讯地图/">腾讯地图</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <p>在公司实习的第一个项目就与地图和数据可视化相关，这让从来没有接触过地图API、加载工具以及相关开发的我一开始都有些手足无措。之后技术路线慢慢定下来，在浏览器中加载腾讯地图的瓦片地图，并在该地图上添加热力图等可视化图表。</p>
+<p>在经过一番简单的调研之后，在浏览器加载地图无非是采用相应地图公司开发的JavaScript API，或者加载在线/离线瓦片地图。后者由于要使用第三方的插件或者自己开发的工具进行加载，所以实现起来较为复杂，而前者实现起来就比较傻瓜了。本文中主要使用腾讯地图作为实例使用地图，同时也会简单提及其他公司开发的地图。</p>
+<a id="more"></a>
+<h4 id="使用JavaScript-API加载腾讯地图"><a href="#使用JavaScript-API加载腾讯地图" class="headerlink" title="使用JavaScript API加载腾讯地图"></a>使用JavaScript API加载腾讯地图</h4><p>使用<a href="http://lbs.qq.com/javascript_v2/index.html" target="_blank" rel="external">JavaScript API</a>在浏览器加载腾讯地图，方式非常简单，最重要就是在页面中加载相应的API的js文件，并初始化地图组件即可：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>简单地图<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="css">			<span class="selector-id">#container</span>&#123;</span></div><div class="line"><span class="css">			    <span class="selector-tag">min-width</span><span class="selector-pseudo">:600px</span>;</span></div><div class="line"><span class="css">			    <span class="selector-tag">min-height</span><span class="selector-pseudo">:767px</span>;</span></div><div class="line"><span class="undefined">			&#125;</span></div><div class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> <span class="attr">src</span>=<span class="string">"http://map.qq.com/api/js?v=2.exp"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">		<span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;	<span class="comment">//初始化地图函数，自定义函数名init</span></span></div><div class="line"><span class="javascript">		        <span class="comment">//定义map变量，调用qq.maps.Map()构造函数，获取地图显示容器</span></span></div><div class="line"><span class="javascript">		    	<span class="keyword">var</span> map = <span class="keyword">new</span> qq.maps.Map(<span class="built_in">document</span>.getElementById(<span class="string">"container"</span>), &#123;</span></div><div class="line"><span class="javascript">             		<span class="comment">// 地图的中心地理坐标：</span></span></div><div class="line"><span class="javascript">             		center: <span class="keyword">new</span> qq.maps.LatLng(<span class="number">39.916527</span>,<span class="number">116.397128</span>),</span></div><div class="line"><span class="undefined">              	zoom:8                                                 </span></div><div class="line"><span class="undefined">             &#125;);</span></div><div class="line"><span class="undefined">		   &#125;</span></div><div class="line"><span class="javascript">	      <span class="comment">//调用初始化函数地图</span></span></div><div class="line"><span class="undefined">	      init();</span></div><div class="line"><span class="undefined">		&#125;</span></div><div class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--定义地图显示容器--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="瓦片地图"><a href="#瓦片地图" class="headerlink" title="瓦片地图"></a>瓦片地图</h4><p>目前的流行的互联网瓦片地图种类有两种，一种是栅格地图瓦片，另一种是矢量地图瓦片。</p>
+<p>栅格地图瓦片较为传统，是将矢量数据渲染成为256×256像素大小的图片，例如百度地图、高德地图、天地图和腾讯地图等，这些地图可以使用leaflet框架进行瓦片的加载。矢量地图瓦片是以json格式分块传输，在浏览器端利用前端框架将地图展示出来，mapbox和腾讯地图中的3D地图就是矢量地图瓦片，支持三维旋转等。</p>
+<h4 id="使用leaflet-js"><a href="#使用leaflet-js" class="headerlink" title="使用leaflet.js"></a>使用leaflet.js</h4><p>各个地图公司的产品本身拥有还比较完善的API和相关的插件和工具，比如除了地图加载之外的标志叠加、热力图叠加等。但是地图瓦片的加载目前比较流行和完善的工具就是<a href="http://leafletjs.com/" target="_blank" rel="external">leaflet.js</a>工具,它通过下载特定地图产品的瓦片（一般是256x256px大小），将相应的x、y坐标对应起来，展示在html文档的容器中。之前在网上搜资料，腾讯地图瓦片的资料也是凤毛麟角，跟公司地图部门的同学了解之后便开始了这个地图应用的开发。下面就用leaflet工具加载腾讯地图瓦片作为例子来展示如何进行地图瓦片的操作。</p>
+<p>废话不多说，先上代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>简单地图<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="css">			<span class="selector-id">#container</span>&#123;</span></div><div class="line"><span class="css">			    <span class="selector-tag">min-width</span><span class="selector-pseudo">:600px</span>;</span></div><div class="line"><span class="css">			    <span class="selector-tag">min-height</span><span class="selector-pseudo">:767px</span>;</span></div><div class="line"><span class="undefined">			&#125;</span></div><div class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> <span class="attr">src</span>=<span class="string">""</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--定义地图显示容器--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"mapid"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">			<span class="keyword">var</span> mymap = L.map(<span class="string">'mapid'</span>).setView([<span class="number">39.90469</span>, <span class="number">116.40717</span>], <span class="number">12</span>);</span></div><div class="line"><span class="javascript">			L.tileLayer(<span class="string">'https://rt&#123;s&#125;.map.gtimg.com/realtimerender?z=&#123;z&#125;&amp;x=&#123;x&#125;&amp;y=&#123;y&#125;&amp;type=vector&amp;style=0'</span>, &#123;</span></div><div class="line"><span class="javascript">	          subdomains: [<span class="string">"0"</span>,<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>],</span></div><div class="line"><span class="javascript">	          tms: <span class="literal">true</span>,</span></div><div class="line"><span class="undefined">	          maxZoom:18,</span></div><div class="line"><span class="undefined">	          minZoom:1,</span></div><div class="line"><span class="javascript">	          detectRetina: <span class="literal">true</span>,</span></div><div class="line"><span class="javascript">	          attribution: <span class="string">'&amp;copy 滴滴出行'</span></span></div><div class="line"><span class="undefined">	   		&#125;).addTo(mymap);</span></div><div class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上面代码中展示的就是在div容器中加载地图瓦片的实例，其中，最重要的就是腾讯地图瓦片的下载地址<strong><a href="https://rt{s}.map.gtimg.com/realtimerender?z={z}&amp;x={x}&amp;y={y}&amp;type=vector&amp;style=0" target="_blank" rel="external">https://rt{s}.map.gtimg.com/realtimerender?z={z}&amp;x={x}&amp;y={y}&amp;type=vector&amp;style=0</a></strong>，其中{s}是指subdomains，是地图瓦片的集群编号，可以传入字符串或数组，此处我们传入的是[“0”, “1”, “2”, “3”]；其次是{x}、{y}、{z}三个参数分别指的是瓦片的横坐标、纵坐标以及缩放等级。地图实例通过L.map(容器ID)来进行声明，通过L.tileLayer().addTo(地图实例)方法来进行加载，该方法中需要传入一个地图瓦片URL和一个参数对象作为参数。其中参数对象中的参数配置可以参考leaflet官网的文档进行配置。</p>
+<p>地图加载完毕之后，可以在加载好的地图图层上继续添加所需要的标志、热力图等等。我们这里展示leaflet工具自带的热力图加载方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">L.heatLayer(data,&#123;</div><div class="line">	minOpacity: <span class="number">0.6</span>,</div><div class="line">	maxZoom: <span class="number">18</span>,</div><div class="line">	max: <span class="number">500</span>,</div><div class="line">	radius: <span class="number">12</span>,</div><div class="line">	blur: <span class="number">0</span>,</div><div class="line">	gradient: &#123;</div><div class="line">	  <span class="number">1</span>: <span class="string">'#00ffe4'</span>, </div><div class="line">	  <span class="number">0.7</span>: <span class="string">'#0078ff'</span>, </div><div class="line">	  <span class="number">0.5</span>:<span class="string">'#4285ff'</span></div><div class="line">	&#125;</div><div class="line">&#125;).addTo(mymap);</div></pre></td></tr></table></figure>
+<p>同样是在一样的容器里添加图层，参数有热力数据和参数对象两个，其中热力数据的数据结构是[纬度, 经度, 热度]该热力图可以通过设置透明度（minOpacity）、渐变色（gradient）、扩展度（blur）来改变热力图的样式。</p>
+<p>在本文最基础的使用leaflet工具来加载腾讯地图瓦片之后，相信会接触更多有关地图网页应用的项目，之后也会不断地更新地图相关技术博客文章。</p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html" data-id="cj8juni96000epx90rhrnkuu0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/08/02/2017-05-10-LESS-document-note.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    LESS官方文档学习笔记
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JavaScript高级程序设计笔记整理</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

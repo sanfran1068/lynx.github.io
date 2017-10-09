@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Jena学习笔记 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Jena初步了解JenaAPI的框架如下图：">
+<meta name="keywords" content="Ontology,基础知识,JenaAPI,API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jena学习笔记">
+<meta property="og:url" content="http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="Jena初步了解JenaAPI的框架如下图：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-ontology%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
+<meta property="og:updated_time" content="2017-10-09T07:13:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jena学习笔记">
+<meta name="twitter:description" content="Jena初步了解JenaAPI的框架如下图：">
+<meta name="twitter:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-ontology%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2015-11-20-jena-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+            
+	
+		<img src="http://oqcytejyk.bkt.clouddn.com/post-bg-ontology%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" class="article-banner" />
+	
+
+
+
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Jena学习笔记
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/09/21/2015-11-20-jena-learning-note.html">
+            <time datetime="2015-09-21T04:00:00.000Z" itemprop="datePublished">2015-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/API/">API</a>, <a class="tag-link" href="/tags/JenaAPI/">JenaAPI</a>, <a class="tag-link" href="/tags/Ontology/">Ontology</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <h4 id="Jena初步了解"><a href="#Jena初步了解" class="headerlink" title="Jena初步了解"></a>Jena初步了解</h4><p>JenaAPI的框架如下图：<br><img src="http://oqcytejyk.bkt.clouddn.com/jena-structure%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" alt=""></p>
+<a id="more"></a>
+<p>如上图所示，利用Jena进行语义网处理应用的开发有通过HTTP和Servlet响应的B/S模式，还有通过JenaAPI进行Java编程来处理本体数据。</p>
+<ul>
+<li>RDF API：Jena提供了对RDF文件的创建、读/写以及一些基本操作的接口（方法）；</li>
+<li>SPARQL API：Jena提供一套对本体的三元组的query机制，类似于SQL语言对于数据库的操作，SPARQL对于本体的查询也可以通过简单的查询语句达到目的，这也为B/S模式的本体展示和交互提供了基础；</li>
+<li>Ontology API：</li>
+<li>Fuseki</li>
+</ul>
+<h4 id="RDF-API"><a href="#RDF-API" class="headerlink" title="RDF API"></a>RDF API</h4><h5 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h5><ul>
+<li>Blank Node：一阶逻辑中表示一个无URI的resource</li>
+<li>Literal：可作为一个property的值（value）</li>
+<li>Object：the resource or literal pointed to by the arc（箭头指向的一端）</li>
+<li>Subject：the resource from which the arc leaves（箭头离开的一端）</li>
+<li><p>Triple：</p>
+<ul>
+<li>Predicate：三元组中的属性部分（关系）（the property that labels the arc）</li>
+<li>Property：一个resource的属性，指三元组中的关系</li>
+<li>Resouce：实体，通常由URI命名的资源</li>
+</ul>
+<p>Statement：指一个fact，即一个三元组（Each arc in an RDF Model）</p>
+</li>
+</ul>
+<h5 id="对RDF的操作（JavaAPI）"><a href="#对RDF的操作（JavaAPI）" class="headerlink" title="对RDF的操作（JavaAPI）"></a>对RDF的操作（JavaAPI）</h5><ul>
+<li>Create graph    </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// some definitions</span></div><div class="line"><span class="keyword">static</span> String personURI = <span class="string">"http://somewhere/JohnSmith"</span>;</div><div class="line"><span class="keyword">static</span> String fullName = <span class="string">"John Smith"</span>;</div><div class="line"></div><div class="line"><span class="comment">// create an empty Model</span></div><div class="line">Model model = ModelFactory.createDefaultModel();</div><div class="line"></div><div class="line"><span class="comment">// create the resource</span></div><div class="line">Resource johnSmith = model.createResource(personURI);</div><div class="line"></div><div class="line"><span class="comment">// add the property</span></div><div class="line"> johnSmith.addProperty(VCARD.FN, fullName);</div></pre></td></tr></table></figure>
+<ul>
+<li>Create resource and add the property</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Resouce example</span></div><div class="line">Resource johnSmith = model.createResource(personURI).addProperty(VCARD.FN, fullName);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// some definitions</span></div><div class="line">String personURI    = <span class="string">"http://somewhere/JohnSmith"</span>;</div><div class="line">String givenName    = <span class="string">"John"</span>;</div><div class="line">String familyName   = <span class="string">"Smith"</span>;</div><div class="line">String fullName     = givenName + <span class="string">" "</span> + familyName;</div><div class="line"></div><div class="line"><span class="comment">// create an empty Model</span></div><div class="line">Model model = ModelFactory.createDefaultModel();</div><div class="line"></div><div class="line"><span class="comment">// create the resource</span></div><div class="line"><span class="comment">// and add the properties cascading style</span></div><div class="line">Resource johnSmith</div><div class="line">  = model.createResource(personURI)</div><div class="line">         .addProperty(VCARD.FN, fullName)</div><div class="line">         .addProperty(VCARD.N,</div><div class="line">                      model.createResource()</div><div class="line">                           .addProperty(VCARD.Given, givenName)</div><div class="line">                           .addProperty(VCARD.Family, familyName));</div></pre></td></tr></table></figure>
+<ul>
+<li>Manipulate the stmt</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// list the statements in the Model</span></div><div class="line">StmtIterator iter = model.listStatements();</div><div class="line"></div><div class="line"><span class="comment">// print out the predicate, subject and object of each statement</span></div><div class="line"><span class="keyword">while</span> (iter.hasNext()) &#123;</div><div class="line">    Statement stmt      = iter.nextStatement();  <span class="comment">// get next statement</span></div><div class="line">    Resource  subject   = stmt.getSubject();     <span class="comment">// get the subject</span></div><div class="line">    Property  predicate = stmt.getPredicate();   <span class="comment">// get the predicate</span></div><div class="line">    RDFNode   object    = stmt.getObject();      <span class="comment">// get the object</span></div><div class="line"></div><div class="line">    System.out.print(subject.toString());</div><div class="line">    System.out.print(<span class="string">" "</span> + predicate.toString() + <span class="string">" "</span>);</div><div class="line">    <span class="keyword">if</span> (object <span class="keyword">instanceof</span> Resource) &#123;</div><div class="line">       System.out.print(object.toString());</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// object is a literal</span></div><div class="line">        System.out.print(<span class="string">" \""</span> + object.toString() + <span class="string">"\""</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    System.out.println(<span class="string">" ."</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于object可以是Resource或者Literal，所以object的类型为RDFNode。</p>
+<ul>
+<li>Writing RDF</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// now write the model in XML form to a file</span></div><div class="line">model.write(System.out);</div><div class="line">model.write(System.out, <span class="string">"RDF/XML-ABBREV"</span>); <span class="comment">// write the model in XML form to a file</span></div><div class="line">model.write(System.out, <span class="string">"N-TRIPLES"</span>); <span class="comment">// write the model in N-TRIPLES form to a file</span></div></pre></td></tr></table></figure>
+<ul>
+<li>Reading RDF</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// create an empty model</span></div><div class="line"> Model model = ModelFactory.createDefaultModel();</div><div class="line"></div><div class="line"> <span class="comment">// use the FileManager to find the input file</span></div><div class="line"> InputStream in = FileManager.get().open( inputFileName );</div><div class="line"><span class="keyword">if</span> (in == <span class="keyword">null</span>) &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</div><div class="line">                                 <span class="string">"File: "</span> + inputFileName + <span class="string">" not found"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// read the RDF/XML file</span></div><div class="line">model.read(in, <span class="keyword">null</span>);</div><div class="line"></div><div class="line"><span class="comment">// write it to standard out</span></div><div class="line">model.write(System.out);</div></pre></td></tr></table></figure>
+<h4 id="SPARQL-API"><a href="#SPARQL-API" class="headerlink" title="SPARQL API"></a>SPARQL API</h4><p>需要保存在.rq文件中进行使用。</p>
+<ul>
+<li>Basic query：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT ?xWHERE&#123; ?x&lt;http://www.w3.org/2001/vcard-rdf/3.0#FN&gt;  &quot;JohnSmith&quot; &#125;</div></pre></td></tr></table></figure>
+<p>其中&lt;&gt;中为URI，“”中为literal，？x为查询变量</p>
+<ul>
+<li>Basic pattern</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">WHERE</div><div class="line">  &#123; ?y  &lt;http://www.w3.org/2001/vcard-rdf/3.0#Family&gt;  &quot;Smith&quot; .</div><div class="line">    ?y  &lt;http://www.w3.org/2001/vcard-rdf/3.0#Given&gt;  ?givenName .</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>basic patterns：是一组三元组的模式；<br>prefix and blanknodes：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PREFIX vcard:      &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</div><div class="line"></div><div class="line">SELECT ?y ?givenName</div><div class="line">WHERE</div><div class="line"> &#123; ?y vcard:Family &quot;Smith&quot; .</div><div class="line">   ?y vcard:Given  ?givenName .</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Filters</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">PREFIX vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</div><div class="line"></div><div class="line">SELECT ?g</div><div class="line">WHERE</div><div class="line">&#123; ?y vcard:Given ?g .</div><div class="line">  FILTER regex(?g, &quot;r&quot;, &quot;i&quot;) &#125;</div></pre></td></tr></table></figure>
+<p>上面的加粗为FILTER，其中最后一个“”中的i表示case-insensitive</p>
+<ul>
+<li>Optionals（表示如果有这个属性那么就显示在结果中，如果没有就不显示）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">PREFIX info:    &lt;http://somewhere/peopleInfo#&gt;</div><div class="line">PREFIX vcard:   &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</div><div class="line"></div><div class="line">SELECT ?name ?age</div><div class="line">WHERE</div><div class="line">&#123;</div><div class="line">    ?person vcard:FN  ?name .</div><div class="line">    OPTIONAL &#123; ?person info:age ?age &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>optionals with filters：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">PREFIX info:        &lt;http://somewhere/peopleInfo#&gt;</div><div class="line">PREFIX vcard:      &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</div><div class="line"></div><div class="line">SELECT ?name ?age</div><div class="line">WHERE</div><div class="line">&#123;</div><div class="line">    ?person vcard:FN  ?name .</div><div class="line">    OPTIONAL &#123; ?person info:age ?age . FILTER ( ?age &gt; 24 ) &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Unions：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</div><div class="line">PREFIX vCard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</div><div class="line"></div><div class="line">SELECT ?name</div><div class="line">WHERE</div><div class="line">&#123;</div><div class="line">   &#123; [] foaf:name ?name &#125; UNION &#123; [] vCard:FN ?name &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相当于FILTER ( ?p = foaf:name || ?p = vCard:FN)<br>如果是分开资源那么只要分别用不同变量标注即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SELECT ?name1 ?name2</div><div class="line">WHERE</div><div class="line">&#123;</div><div class="line">   &#123; [] foaf:name ?name1 &#125; UNION &#123; [] vCard:FN ?name2 &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>SPARQL result forms：</p>
+<ul>
+<li>SELECT – Return a table of results.</li>
+<li>CONSTRUCT – Return an RDF graph, based on a template in the query.</li>
+<li>DESCRIBE – Return an RDF graph, based on what the query processor is configured to return.</li>
+<li>ASK – Ask a boolean query.</li>
+</ul>
+</li>
+</ul>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html" data-id="cj8juni92000apx90sv8dnf55" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2015/09/21/2015-09-21-ontology-concepts-conclusion.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Ontology本体基础知识总结整理
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2014/12/25/2014-12-25-markdown-programming-language.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Markdown</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
