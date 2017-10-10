@@ -4,6 +4,86 @@
 
     
   <url>
+    <loc>http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html</loc>
+    <lastmod>2017-10-10T13:29:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript正则表达式学习笔记[上]</title>
+        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>正则表达式</tag>
+         
+        <tag>读书笔记</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html</loc>
+    <lastmod>2017-10-10T13:20:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript中的原型与继承-继承篇</title>
+        <pubTime>2017-04-13T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>原型</tag>
+         
+        <tag>继承</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html</loc>
+    <lastmod>2017-10-10T13:05:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>IJavascript-个人在线前端代码解释器安装与使用</title>
+        <pubTime>2017-05-09T04:00:00.000Z</pubTime>
+        
+        <tag>Jupyter</tag>
+         
+        <tag>前端</tag>
+         
+        <tag>解释器</tag>
+         
+        <tag>说明书</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html</loc>
     <lastmod>2017-10-09T09:16:16.000Z</lastmod>
     <data>
@@ -13,9 +93,9 @@
         
         <tag>基础知识</tag>
          
-        <tag>读书笔记</tag>
-         
         <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
          
          
            
@@ -37,33 +117,9 @@
         
         <tag>基础知识</tag>
          
+        <tag>JavaScript</tag>
+         
         <tag>读书笔记</tag>
-         
-        <tag>JavaScript</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>ES6入门必须了解的知识（上）</title>
-        <pubTime>2017-08-02T04:00:00.000Z</pubTime>
-        
-        <tag>基础知识</tag>
-         
-        <tag>JavaScript</tag>
-         
-        <tag>ES6</tag>
          
          
            
@@ -85,11 +141,89 @@
         
         <tag>基础知识</tag>
          
+        <tag>JavaScript</tag>
+         
         <tag>读书笔记</tag>
+         
+        <tag>Nodejs</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html</loc>
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>CSS中的伪类与伪元素</title>
+        <pubTime>2017-03-10T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>CSS3</tag>
+         
+        <tag>Selector</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript中的原型与继承-原型篇</title>
+        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
          
         <tag>JavaScript</tag>
          
-        <tag>Nodejs</tag>
+        <tag>读书笔记</tag>
+         
+        <tag>原型</tag>
+         
+        <tag>继承</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html</loc>
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>Ontology本体基础知识总结整理</title>
+        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
+        
+        <tag>Knowledge Base</tag>
+         
+        <tag>Ontology</tag>
+         
+        <tag>基础知识</tag>
          
          
            
@@ -154,58 +288,6 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript中的原型与继承-原型篇</title>
-        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
-        
-        <tag>基础知识</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>JavaScript</tag>
-         
-        <tag>原型</tag>
-         
-        <tag>继承</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Ontology本体基础知识总结整理</title>
-        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
-        
-        <tag>Knowledge Base</tag>
-         
-        <tag>Ontology</tag>
-         
-        <tag>基础知识</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html</loc>
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     <data>
@@ -226,20 +308,18 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html</loc>
+    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     <data>
         <display>
-        <title>CSS中的伪类与伪元素</title>
-        <pubTime>2017-03-10T04:00:00.000Z</pubTime>
+        <title>ES6入门必须了解的知识（上）</title>
+        <pubTime>2017-08-02T04:00:00.000Z</pubTime>
         
         <tag>基础知识</tag>
          
-        <tag>CSS3</tag>
+        <tag>JavaScript</tag>
          
-        <tag>Selector</tag>
-         
-        <tag>读书笔记</tag>
+        <tag>ES6</tag>
          
          
            
