@@ -262,7 +262,150 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html" data-id="cj8lnke2o00029zjcajc9az0z" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html" data-id="cj8lnlxnu0008aijczb4v0usv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+</article>
+
+        
+            <article id="post-2015-11-20-jena-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+            
+	
+		<a href="/2015/09/21/2015-11-20-jena-learning-note.html" itemprop="url">
+            <img src="http://oqcytejyk.bkt.clouddn.com/post-bg-ontology%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/09/21/2015-11-20-jena-learning-note.html">Jena学习笔记</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/09/21/2015-11-20-jena-learning-note.html">
+            <time datetime="2015-09-21T04:00:00.000Z" itemprop="datePublished">2015-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/API/">API</a>, <a class="tag-link" href="/tags/JenaAPI/">JenaAPI</a>, <a class="tag-link" href="/tags/Ontology/">Ontology</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            <p><h4 id="Jena初步了解"><a href="#Jena初步了解" class="headerlink" title="Jena初步了解"></a>Jena初步了解</h4><p>JenaAPI的框架如下图：<br><img src="http://oqcytejyk.bkt.clouddn.com/jena-structure%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" alt=""></p></p>
+            <p class="article-more-link">
+                <a href="/2015/09/21/2015-11-20-jena-learning-note.html#more">查看更多</a>
+            </p>
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html" data-id="cj8lnlxod000faijcg10diaql" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -411,150 +554,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html" data-id="cj8lnke3e00089zjcsewabl4y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    
-</article>
-
-        
-            <article id="post-2015-11-20-jena-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        <div class="article-corner"></div>
-        
-            
-	
-		<a href="/2015/09/21/2015-11-20-jena-learning-note.html" itemprop="url">
-            <img src="http://oqcytejyk.bkt.clouddn.com/post-bg-ontology%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/09/21/2015-11-20-jena-learning-note.html">Jena学习笔记</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/09/21/2015-11-20-jena-learning-note.html">
-            <time datetime="2015-09-21T04:00:00.000Z" itemprop="datePublished">2015-09-21</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Document/">Document</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/API/">API</a>, <a class="tag-link" href="/tags/JenaAPI/">JenaAPI</a>, <a class="tag-link" href="/tags/Ontology/">Ontology</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-
-        
-
-        <div class="article-entry" itemprop="articleBody">
-
-        
-            <p><h4 id="Jena初步了解"><a href="#Jena初步了解" class="headerlink" title="Jena初步了解"></a>Jena初步了解</h4><p>JenaAPI的框架如下图：<br><img src="http://oqcytejyk.bkt.clouddn.com/jena-structure%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" alt=""></p></p>
-            <p class="article-more-link">
-                <a href="/2015/09/21/2015-11-20-jena-learning-note.html#more">查看更多</a>
-            </p>
-        
-        </div>
-
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html" data-id="cj8lnke3a00069zjcsdj4v93i" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html" data-id="cj8lnlxna0002aijc572ytciv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -697,7 +697,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html" data-id="cj8lnke2f00009zjc13j3xejd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html" data-id="cj8lnlxmy0000aijcqljgiam6" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
