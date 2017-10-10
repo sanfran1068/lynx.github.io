@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Babel的使用方法 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Babel的使用方法Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。">
+<meta name="keywords" content="Knowledge Base,基础知识,JavaScript,Babel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Babel的使用方法">
+<meta property="og:url" content="http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="Babel的使用方法Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-javascript%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
+<meta property="og:updated_time" content="2017-10-10T13:38:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Babel的使用方法">
+<meta name="twitter:description" content="Babel的使用方法Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。">
+<meta name="twitter:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-javascript%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2017-09-21-babel-document-study" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+            
+	
+		<img src="http://oqcytejyk.bkt.clouddn.com/post-bg-javascript%E7%9A%84%E5%89%AF%E6%9C%AC.jpg" class="article-banner" />
+	
+
+
+
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Babel的使用方法
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/09/21/2017-09-21-babel-document-study.html">
+            <time datetime="2017-09-21T04:00:00.000Z" itemprop="datePublished">2017-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Babel/">Babel</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/Knowledge-Base/">Knowledge Base</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <h4 id="Babel的使用方法"><a href="#Babel的使用方法" class="headerlink" title="Babel的使用方法"></a>Babel的使用方法</h4><p>Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</p>
+<a id="more"></a>
+<h5 id="使用命令行转码"><a href="#使用命令行转码" class="headerlink" title="使用命令行转码"></a>使用命令行转码</h5><ul>
+<li><p>安装babel-cli：<code>npm install --global babel-cli</code></p>
+</li>
+<li><p>使用：</p>
+<ul>
+<li>转码结果输出到标准输出：<code>babel compiled.js</code></li>
+<li>转码结果写入一个文件：<code>babel source.js -o compiled.js</code></li>
+<li>整个目录转码：<code>babel src -d lib</code></li>
+<li>生成source map文件：<code>babel src -d lib -s</code></li>
+</ul>
+</li>
+<li><p>在package.json中使用babel-cli</p>
+<ul>
+<li>在项目中安装babel-cli：<code>npm install --save-dev babel-cli</code></li>
+<li><p>在package.json中进行配置（使用npm run build就可以进行babel转码）：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  <span class="string">"devDependencies"</span>: &#123;</div><div class="line">    <span class="string">"babel-cli"</span>: <span class="string">"^6.0.0"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">"scripts"</span>: &#123;</div><div class="line">    <span class="string">"build"</span>: <span class="string">"babel src -d lib"</span></div><div class="line">  &#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="安装和注册"><a href="#安装和注册" class="headerlink" title="安装和注册"></a>安装和注册</h5><ul>
+<li><p>安装</p>
+<ul>
+<li><p>ES2015转码规则<br>  npm install –save-dev babel-preset-es2015</p>
+</li>
+<li><p>react转码规则<br>  npm install –save-dev babel-preset-react</p>
+</li>
+<li><p>ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个<br>  npm install –save-dev babel-preset-stage-0<br>  npm install –save-dev babel-preset-stage-1<br>  npm install –save-dev babel-preset-stage-2<br>  npm install –save-dev babel-preset-stage-3</p>
+<p>  如果是想使用比较新的语法时，比如ES7中的async/await语法，选择安装stage-3是比较稳妥的。在安装好之后，需要在Babel的配置文件中进行注册，在项目的根目录下新建.babelrc文件并进行配置：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"presets"</span>: [</div><div class="line">      <span class="string">"es2015"</span>,</div><div class="line">      <span class="string">"react"</span>,</div><div class="line">      <span class="string">"stage-2"</span></div><div class="line">    ],</div><div class="line">    <span class="string">"plugins"</span>: []</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="webpack配置babel"><a href="#webpack配置babel" class="headerlink" title="webpack配置babel"></a>webpack配置babel</h5><ul>
+<li>安装：安装方式仍如上一步npm安装方式</li>
+<li><p>配置：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack1.0</span></div><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">    loaders: [</div><div class="line">        &#123;</div><div class="line">            test: <span class="regexp">/\.js$/</span>,</div><div class="line">            exclude: <span class="regexp">/(node_modules|bower_components)/</span>,</div><div class="line">            loader: <span class="string">"babel"</span>,</div><div class="line">            query: &#123;</div><div class="line">              presets: [<span class="string">'es2015'</span>, <span class="string">'stage-3'</span>]</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">    ]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//webpack3.0，preset如果已经在package.json中指定（`babel:&#123;"presets": ["lastest"]&#125;`），这里可以不用配置</span></div><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">	rules: &#123;</div><div class="line">		&#123;</div><div class="line">			test: <span class="regexp">/\.js$/</span>,</div><div class="line">			use: <span class="string">'babel-loader'</span>,</div><div class="line">			exclude: <span class="regexp">/(node_modules|bower_components)/</span>,</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="开发环境使用babel-register"><a href="#开发环境使用babel-register" class="headerlink" title="开发环境使用babel-register"></a>开发环境使用babel-register</h5><p>babel-register的作用是在模块使用<strong>require</strong>命令进行引入时，对该命令引入的模块进行babel的转码（只要是js/jsx/es/es6类型文件）：</p>
+<ul>
+<li>安装babel-register：<code>npm install --save-dev babel-register</code></li>
+<li>加载babel-register：<code>require(&quot;babel-register&quot;);require(&quot;./index.js&quot;);</code>，即可对index.js进行转码（<strong>注意：register不会对当前js文件进行转码</strong>）</li>
+</ul>
+<h5 id="使用babel-core的API进行转码"><a href="#使用babel-core的API进行转码" class="headerlink" title="使用babel-core的API进行转码"></a>使用babel-core的API进行转码</h5><ul>
+<li>安装：<code>npm install babel-core --save</code></li>
+<li><p>使用：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> babel = <span class="built_in">require</span>(<span class="string">'babel-core'</span>);</div><div class="line"><span class="comment">// 字符串转码</span></div><div class="line">babel.transform(<span class="string">'code();'</span>, options);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="babel-polyfill"><a href="#babel-polyfill" class="headerlink" title="babel-polyfill"></a>babel-polyfill</h5><p>Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。<br>举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。[^1]</p>
+<p>例如之前在学习koa2的过程中，遇到了async/await的情况，就必须安装polyfill才能够正常加载。</p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html" data-id="cj8lnjl17000q9jjczj3dybv7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">ES6入门必须了解的知识（上）</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
