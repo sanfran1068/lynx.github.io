@@ -2478,7 +2478,8 @@ ol.toc {
 .project-panel {
   color: #000;
   position: absolute;
-  max-height: 400px;
+  width: 900px;
+  height: 400px;
   margin: 20px 100px;
   left: 50%;
   margin-left: -400px;
@@ -2486,18 +2487,21 @@ ol.toc {
 }
 @media screen and (min-width: 800px) and (max-width: 1199px) {
   .project-panel {
+    width: 500px;
     margin-left: -180px;
     overflow-y: scroll;
   }
 }
 @media screen and (min-width: 560px) and (max-width: 799px) {
   .project-panel {
+    width: 500px;
     margin-left: -170px;
     overflow-y: scroll;
   }
 }
 @media screen and (max-width: 559px) {
   .project-panel {
+    width: 500px;
     margin-left: -170px;
     overflow-y: scroll;
   }

@@ -4,6 +4,32 @@
 
     
   <url>
+    <loc>http://keefe.wang/2015/09/21/2017-09-21-babel-document-study.html</loc>
+    <lastmod>2017-10-10T13:36:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>Babel的使用方法</title>
+        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
+        
+        <tag>Knowledge Base</tag>
+         
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>Babel</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html</loc>
     <lastmod>2017-10-10T13:29:44.000Z</lastmod>
     <data>
@@ -15,9 +41,9 @@
          
         <tag>JavaScript</tag>
          
-        <tag>正则表达式</tag>
-         
         <tag>读书笔记</tag>
+         
+        <tag>正则表达式</tag>
          
          
            
@@ -132,6 +158,32 @@
 
     
   <url>
+    <loc>http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html</loc>
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Leaflet插件在浏览器加载地图</title>
+        <pubTime>2017-06-12T04:00:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>Leaflet</tag>
+         
+        <tag>Map</tag>
+         
+        <tag>腾讯地图</tag>
+         
+         
+           
+             
+              <breadCrumb title="Toolkit" url="http://keefe.wang/categories/Toolkit/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html</loc>
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     <data>
@@ -143,9 +195,9 @@
          
         <tag>JavaScript</tag>
          
-        <tag>读书笔记</tag>
-         
         <tag>Nodejs</tag>
+         
+        <tag>读书笔记</tag>
          
          
            
@@ -184,46 +236,14 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
+    <loc>http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html</loc>
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     <data>
         <display>
-        <title>JavaScript中的原型与继承-原型篇</title>
-        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        <title>Markdown</title>
+        <pubTime>2014-12-24T16:31:00.000Z</pubTime>
         
-        <tag>基础知识</tag>
-         
-        <tag>JavaScript</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>原型</tag>
-         
-        <tag>继承</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Ontology本体基础知识总结整理</title>
-        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
-        
-        <tag>Knowledge Base</tag>
-         
-        <tag>Ontology</tag>
-         
-        <tag>基础知识</tag>
+        <tag>Markdown</tag>
          
          
            
@@ -262,40 +282,18 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html</loc>
+    <loc>http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html</loc>
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     <data>
         <display>
-        <title>使用Leaflet插件在浏览器加载地图</title>
-        <pubTime>2017-06-12T04:00:00.000Z</pubTime>
+        <title>Ontology本体基础知识总结整理</title>
+        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
         
-        <tag>JavaScript</tag>
+        <tag>Knowledge Base</tag>
          
-        <tag>Leaflet</tag>
+        <tag>Ontology</tag>
          
-        <tag>Map</tag>
-         
-        <tag>腾讯地图</tag>
-         
-         
-           
-             
-              <breadCrumb title="Toolkit" url="http://keefe.wang/categories/Toolkit/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown</title>
-        <pubTime>2014-12-24T16:31:00.000Z</pubTime>
-        
-        <tag>Markdown</tag>
+        <tag>基础知识</tag>
          
          
            
@@ -320,6 +318,34 @@
         <tag>JavaScript</tag>
          
         <tag>ES6</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript中的原型与继承-原型篇</title>
+        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>原型</tag>
+         
+        <tag>继承</tag>
          
          
            
