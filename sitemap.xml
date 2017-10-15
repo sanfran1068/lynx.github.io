@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://keefe.wang/2017/10/08/2017-10-08-shape-grammar-learning-notes.html</loc>
+    <loc>http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html</loc>
     
-    <lastmod>2017-10-15T13:58:37.000Z</lastmod>
+    <lastmod>2017-10-15T14:14:04.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html</loc>
+    <loc>http://keefe.wang/2017/10/08/2017-10-08-shape-grammar-learning-notes.html</loc>
     
-    <lastmod>2017-10-13T06:33:21.000Z</lastmod>
+    <lastmod>2017-10-15T13:58:37.000Z</lastmod>
     
   </url>
   
@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html</loc>
+    <loc>http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
@@ -66,6 +66,27 @@
   
   <url>
     <loc>http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html</loc>
+    
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html</loc>
+    
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html</loc>
+    
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
@@ -93,21 +114,14 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
+    <loc>http://keefe.wang/categories/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html</loc>
-    
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html</loc>
+    <loc>http://keefe.wang/welcome/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
@@ -121,21 +135,7 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/categories/index.html</loc>
-    
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://keefe.wang/tags/index.html</loc>
-    
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://keefe.wang/welcome/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
