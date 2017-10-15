@@ -3,21 +3,21 @@
 <head>
     <meta charset="utf-8">
     
-    <title>IJavascript-个人在线前端代码解释器安装与使用 | Lynx-Blog</title>
+    <title>Babel的使用方法 | Lynx-Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Jupyter-开源的文档/代码编辑、解释、分享工具ProjectJupyter1是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分">
-<meta name="keywords" content="Jupyter,前端,解释器,说明书">
+    <meta name="description" content="《JavaScript语言精粹》这本书可谓是JavaScript这门语言的几乎所有知识点的总结，相当于考试之前要画的重点。尽管书中对于各个知识点的介绍比较少，但是知识点覆盖很全，可以进行反复阅读和积累。下面就对这本书中的知识点进行一个整理和总结。">
+<meta name="keywords" content="基础知识,JavaScript,读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IJavascript-个人在线前端代码解释器安装与使用">
-<meta property="og:url" content="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">
+<meta property="og:title" content="Babel的使用方法">
+<meta property="og:url" content="http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html">
 <meta property="og:site_name" content="Lynx-Blog">
-<meta property="og:description" content="Jupyter-开源的文档/代码编辑、解释、分享工具ProjectJupyter1是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分">
+<meta property="og:description" content="《JavaScript语言精粹》这本书可谓是JavaScript这门语言的几乎所有知识点的总结，相当于考试之前要画的重点。尽管书中对于各个知识点的介绍比较少，但是知识点覆盖很全，可以进行反复阅读和积累。下面就对这本书中的知识点进行一个整理和总结。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-javascript%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
-<meta property="og:updated_time" content="2017-10-10T13:05:39.000Z">
+<meta property="og:updated_time" content="2017-10-13T06:33:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IJavascript-个人在线前端代码解释器安装与使用">
-<meta name="twitter:description" content="Jupyter-开源的文档/代码编辑、解释、分享工具ProjectJupyter1是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分">
+<meta name="twitter:title" content="Babel的使用方法">
+<meta name="twitter:description" content="《JavaScript语言精粹》这本书可谓是JavaScript这门语言的几乎所有知识点的总结，相当于考试之前要画的重点。尽管书中对于各个知识点的介绍比较少，但是知识点覆盖很全，可以进行反复阅读和积累。下面就对这本书中的知识点进行一个整理和总结。">
 <meta name="twitter:image" content="http://oqcytejyk.bkt.clouddn.com/post-bg-javascript%E7%9A%84%E5%89%AF%E6%9C%AC.jpg">
     
 
@@ -149,7 +149,7 @@
 
 
             <section class="outer">
-    <article id="post-2017-04-15-Online-Javascript-Interpreter-IJavascript" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         <div class="article-corner"></div>
         
@@ -167,7 +167,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            IJavascript-个人在线前端代码解释器安装与使用
+            Babel的使用方法
         </h1>
     
 
@@ -176,8 +176,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">
-            <time datetime="2017-05-09T04:00:00.000Z" itemprop="datePublished">2017-05-09</time>
+        <a href="/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html">
+            <time datetime="2017-10-10T04:00:00.000Z" itemprop="datePublished">2017-10-10</time>
         </a>
     </div>
 
@@ -191,7 +191,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Jupyter/">Jupyter</a>, <a class="tag-link" href="/tags/前端/">前端</a>, <a class="tag-link" href="/tags/解释器/">解释器</a>, <a class="tag-link" href="/tags/说明书/">说明书</a>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
     </div>
 
                     </div>
@@ -205,31 +205,35 @@
 
         
             
-            <h4 id="Jupyter-开源的文档-代码编辑、解释、分享工具"><a href="#Jupyter-开源的文档-代码编辑、解释、分享工具" class="headerlink" title="Jupyter-开源的文档/代码编辑、解释、分享工具"></a>Jupyter-开源的文档/代码编辑、解释、分享工具</h4><p>ProjectJupyter<a href="https://github.com/jupyter" target="_blank" rel="external">1</a>是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分享。</p>
-<p><img src="http://oqcytejyk.bkt.clouddn.com/image1.png" alt=""></p>
+            <p>《JavaScript语言精粹》这本书可谓是JavaScript这门语言的几乎所有知识点的总结，相当于考试之前要画的重点。尽管书中对于各个知识点的介绍比较少，但是知识点覆盖很全，可以进行反复阅读和积累。下面就对这本书中的知识点进行一个整理和总结。</p>
 <a id="more"></a>
-<h4 id="安装Jupyter-Notebook"><a href="#安装Jupyter-Notebook" class="headerlink" title="安装Jupyter Notebook"></a>安装Jupyter Notebook</h4><ul>
-<li><strong>Python</strong> 环境时安装Jupyter Notebook的必要环境（3.3以上或2.7均可）</li>
-<li>可以先从官网下载Anaconda安装包，Anaconda中继承了NumPy和Jupyter Notebook等工具包，所以直接可以打开Jupyter Notebook应用</li>
-<li><p>macOS系统下可以通过终端的pip工具进行安装：</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>这一部分主要总结JavaScript中的语言结构和相关语法知识点。</p>
 <ul>
-<li><p>首先要升级pip到最新版本：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip3 install --upgrade pip</div></pre></td></tr></table></figure>
-<p>如果pip3命令不存在，需要安装pip3或者（如果电脑中安装的是python2）使用pip命令进行安装。</p>
-</li>
-<li><p>使用pip3命令进行安装jupyter：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip3 install jupyter</div></pre></td></tr></table></figure>
-</li>
+<li>空白：空格一般是可以省略，但是对于<code>var that = this;</code>这种语句var和that之间的空格是必须保留的，而且为了代码美观，也要适当使用空格。</li>
+<li>注释：使用<code>/* */</code>这种风格的注释在遇到正则表达式中出现<em>/时很容易出错，所以<em>*建议使用<code>//</code>的注释方式</em></em>。</li>
+<li>标识符：只能使用字母、$、_开头，其中也只能使用字母、数字或下划线。<strong>避免使用保留字作为标识符</strong>。</li>
+<li>数字：JS中只有一个数字类型，内部表示为64位浮点数，一定程度可以避免溢出问题；<strong>NaN是一个数值，不等于任何值（包括自己）</strong>，有isNaN(number)方法；Infinity表示无限大；数字拥有方法，也可以使用Math对象的方法对数字进行操作。</li>
+<li>字符串：由单引号/双引号包括，\开头是转义字符。在ES5中，JS中所有字符都是<strong>16位</strong>Unicode；字符串有.length属性，不可变，但是可以通过一些方法对其进行操作。</li>
+<li><p>语句：switch、while、for、do可有前置标签label，配合break语句使用</p>
+<ul>
+<li>if语句中可以作为假值的条件有：false、null、undefined、’’、0、NaN，其他都作为真值条件；</li>
+<li>for语句中可以使用for in语句对对象或者类对象的属性/键名进行枚举，但是要确保该属性是否来自该对象还是原型链，使用<code>if(object.hasOwnProperty(variable))</code>进行确定；</li>
 </ul>
 </li>
+<li><p>表达式：注意运算符的优先级；typeof运算符可产生六个值（字符串）number、string、boolean、undefined、function和object；</p>
+</li>
+<li>字面量：</li>
+<li>函数：</li>
 </ul>
-<h4 id="安装IJavascript"><a href="#安装IJavascript" class="headerlink" title="安装IJavascript"></a>安装IJavascript</h4><p>Jupyter Notebook自带python语言编写程序的编译，如果需要其他语言版本的notebook（Julia，Ruby，Haskell等），还需要安装相应语言对应的Kernel<a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" target="_blank" rel="external">2</a>，对于前端工程师来说，当然是需要一个Html、CSS和JavaScript集成的在线解释器，所以IJavascript<a href="https://github.com/n-riesco/ijavascript" target="_blank" rel="external">3</a>就应运而生。IJavascript是Jupyter Notebook的Kernel（支持该功能的是Jupyter messaging protocol）之一。IJavascript同时也在npm包管理工具中，而npm又需要Node.js环境。所以，需要首先确定系统中有Node.js和npm的环境。</p>
-<p>在终端中运行以下代码可以完成IJavascript Kernel的安装：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div><div class="line">brew install pkg-config node zeromq</div><div class="line">sudo easy_install pip</div><div class="line">sudo pip install --upgrade pyzmq jupyter</div><div class="line">sudo npm install -g ijavascript</div></pre></td></tr></table></figure>
-<h4 id="IJavascript的使用"><a href="#IJavascript的使用" class="headerlink" title="IJavascript的使用"></a>IJavascript的使用</h4><p>在终端中输入代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jupyter notebook</div></pre></td></tr></table></figure>
-<p>启动Jupyter Notebook，可以在浏览器打开地址为<a href="http://localhost:8888的web应用，在右上角“new”选项中选择Javascript(Node.js" target="_blank" rel="external">http://localhost:8888的web应用，在右上角“new”选项中选择Javascript(Node.js),就可以开始使用了！</a>,就可以开始使用了！)</p>
-<p>IJavascript不仅可以像控制台一样进行交互式的JavaScript调试，而且可以对HTML和SVG代码进行输出，只需要在输入的时候加上$$html$$或$$svg$$就可以进行代码的所见即所得了。详细的教程可以查看IJavascript官方文档<a href="http://n-riesco.github.io/ijavascript/index.html" target="_blank" rel="external">4</a>.</p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>JavaScript中的简单数据类型有Number、String、Bool、Null、undefined，这些类型都不可变（但是数字、字符串和布尔值有一些方法），其他的数据类型都属于对象Object。</p>
+<ul>
+<li><p>对象字面量：</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> stooge = &#123;</div><div class="line">  <span class="string">"first-name"</span>: <span class="string">"Jerome"</span>, <span class="comment">//不合法的属性名要用""包括</span></div><div class="line">  last_name: <span class="string">"Howard"</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>检索：对象的属性检索方式有两种，一种是</li>
+</ul>
 
         
         </div>
@@ -241,7 +245,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html" data-id="cj8stew9a000gj7jc5rcwps69" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html" data-id="cj8stew9p000yj7jc84yr2d7x" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -313,19 +317,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    JavaScript高级程序设计笔记整理
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/10/08/2017-10-08-shape-grammar-learning-notes.html" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">JavaScript中的原型与继承-继承篇</div>
+            <div class="article-nav-title">形状文法简介</div>
         </a>
     
 </nav>
