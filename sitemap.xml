@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://keefe.wang/2020/01/09/2020-01-09-how-to-be-a-pragmatic-programmer.html</loc>
+    
+    <lastmod>2020-10-20T10:00:20.894Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/2020/03/15/2020-03-05-source-code-reading-express-router.html</loc>
+    
+    <lastmod>2020-10-20T10:00:17.102Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/2020/05/23/2020-05-30-source-code-reading-Egg-starting.html</loc>
+    
+    <lastmod>2020-10-20T10:00:10.798Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html</loc>
     
     <lastmod>2020-10-20T09:48:27.902Z</lastmod>
@@ -23,30 +44,9 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html</loc>
-    
-    <lastmod>2020-10-20T09:44:35.044Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://keefe.wang/2020/01/12/2020-03-05-source-code-reading-express-router.html</loc>
-    
-    <lastmod>2020-10-20T09:42:44.873Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://keefe.wang/2020/01/12/2020-01-12-Javascript-module-history.html</loc>
     
     <lastmod>2020-10-20T09:36:13.923Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://keefe.wang/2020/01/09/2020-01-09-how-to-be-a-pragmatic-programmer.html</loc>
-    
-    <lastmod>2020-10-20T09:31:35.028Z</lastmod>
     
   </url>
   
@@ -170,7 +170,7 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/tags/index.html</loc>
+    <loc>http://keefe.wang/about/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
@@ -184,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/welcome/index.html</loc>
+    <loc>http://keefe.wang/tags/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://keefe.wang/about/index.html</loc>
+    <loc>http://keefe.wang/welcome/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     

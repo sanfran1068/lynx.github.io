@@ -261,7 +261,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/09/21/2017-10-05-http-primary-knowledge-in-Frontend.html" data-id="ckghsl65w00407f6q0t13waom" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/09/21/2017-10-05-http-primary-knowledge-in-Frontend.html" data-id="ckghsrbzx0010jn6qo7cikaub" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -394,7 +394,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html" data-id="ckghsl65c003e7f6qh3h50xza" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html" data-id="ckghsrbzv000xjn6qe893ntav" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -527,7 +527,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html" data-id="ckghsl63k000p7f6qnaxmmxw0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html" data-id="ckghsrbzd000hjn6qw4192ayl" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -661,141 +661,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html" data-id="ckghsl63i000n7f6q23c3i6hz" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    
-</article>
-
-        
-            <article id="post-2017-04-15-Online-Javascript-Interpreter-IJavascript" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        <div class="article-corner"></div>
-        
-
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">IJavascript-个人在线前端代码解释器安装与使用</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">
-            <time datetime="2017-05-09T04:00:00.000Z" itemprop="datePublished">2017-05-09</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Document/">Document</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Jupyter/">Jupyter</a>, <a class="tag-link" href="/tags/前端/">前端</a>, <a class="tag-link" href="/tags/解释器/">解释器</a>, <a class="tag-link" href="/tags/说明书/">说明书</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-
-        
-
-        <div class="article-entry" itemprop="articleBody">
-
-        
-            <p><h4 id="Jupyter-开源的文档-代码编辑、解释、分享工具"><a href="#Jupyter-开源的文档-代码编辑、解释、分享工具" class="headerlink" title="Jupyter-开源的文档/代码编辑、解释、分享工具"></a>Jupyter-开源的文档/代码编辑、解释、分享工具</h4><p>ProjectJupyter<a href="https://github.com/jupyter" target="_blank" rel="external">1</a>是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分享。</p>
-<p><img src="http://oqcytejyk.bkt.clouddn.com/image1.png" alt=""></p></p>
-            <p class="article-more-link">
-                <a href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html#more">查看更多</a>
-            </p>
-        
-        </div>
-
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html" data-id="ckghsl63g000k7f6qsh333c7c" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html" data-id="ckghsrbzg000kjn6q1384a64v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -933,7 +799,141 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" data-id="ckghsl65p003p7f6quqkvy3hd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" data-id="ckghsrbzn000sjn6qg04wvb4y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+</article>
+
+        
+            <article id="post-2017-04-15-Online-Javascript-Interpreter-IJavascript" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">IJavascript-个人在线前端代码解释器安装与使用</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html">
+            <time datetime="2017-05-09T04:00:00.000Z" itemprop="datePublished">2017-05-09</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Jupyter/">Jupyter</a>, <a class="tag-link" href="/tags/前端/">前端</a>, <a class="tag-link" href="/tags/解释器/">解释器</a>, <a class="tag-link" href="/tags/说明书/">说明书</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            <p><h4 id="Jupyter-开源的文档-代码编辑、解释、分享工具"><a href="#Jupyter-开源的文档-代码编辑、解释、分享工具" class="headerlink" title="Jupyter-开源的文档/代码编辑、解释、分享工具"></a>Jupyter-开源的文档/代码编辑、解释、分享工具</h4><p>ProjectJupyter<a href="https://github.com/jupyter" target="_blank" rel="external">1</a>是一项开源的项目，只在创造一个平台供各种开发人员、前沿科学工作者以及坐在电脑前进行工作的各位进行协同开发。该项目下拥有Jupyter Notebook、nbdime、qtconsole等开源应用。本文主要讲述使用Jupyter Notebook应用和IJavascript插件来进行前端代码的可视化编辑、解释以及协同分享。</p>
+<p><img src="http://oqcytejyk.bkt.clouddn.com/image1.png" alt=""></p></p>
+            <p class="article-more-link">
+                <a href="/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html#more">查看更多</a>
+            </p>
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html" data-id="ckghsrbz9000bjn6qren7dsav" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1067,140 +1067,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html" data-id="ckghsl63e000i7f6q8hxs45tm" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    
-</article>
-
-        
-            <article id="post-2017-03-20-JavaScript-RegExpression-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        <div class="article-corner"></div>
-        
-
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html">JavaScript正则表达式学习笔记[上]</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html">
-            <time datetime="2017-04-12T04:00:00.000Z" itemprop="datePublished">2017-04-12</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Document/">Document</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>, <a class="tag-link" href="/tags/正则表达式/">正则表达式</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-
-        
-
-        <div class="article-entry" itemprop="articleBody">
-
-        
-            <p><h4 id="正则表达式-Regular-Expression"><a href="#正则表达式-Regular-Expression" class="headerlink" title="正则表达式 Regular Expression"></a>正则表达式 Regular Expression</h4><p>正则表达式是由一个字符序列形成的搜索模式,可用于所有文本搜索和文本替换的操作。[^1]它的重要性就不言而喻了。本文结合《JavaScript高级程序设计》一书并整理其他资料，对正则表达式的基础进行一个学习笔记的记录。更加详细的正则表达式学习心得将在之后的笔记中进行记录。</p></p>
-            <p class="article-more-link">
-                <a href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html#more">查看更多</a>
-            </p>
-        
-        </div>
-
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html" data-id="ckghsl63c000e7f6q4ac7fjv0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html" data-id="ckghsrbz20007jn6q7nktio21" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1333,7 +1200,140 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html" data-id="ckghsl631000d7f6qt0qsxd52" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html" data-id="ckghsrbzb000fjn6q0ncizhwk" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+</article>
+
+        
+            <article id="post-2017-03-20-JavaScript-RegExpression-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html">JavaScript正则表达式学习笔记[上]</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html">
+            <time datetime="2017-04-12T04:00:00.000Z" itemprop="datePublished">2017-04-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>, <a class="tag-link" href="/tags/正则表达式/">正则表达式</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            <p><h4 id="正则表达式-Regular-Expression"><a href="#正则表达式-Regular-Expression" class="headerlink" title="正则表达式 Regular Expression"></a>正则表达式 Regular Expression</h4><p>正则表达式是由一个字符序列形成的搜索模式,可用于所有文本搜索和文本替换的操作。[^1]它的重要性就不言而喻了。本文结合《JavaScript高级程序设计》一书并整理其他资料，对正则表达式的基础进行一个学习笔记的记录。更加详细的正则表达式学习心得将在之后的笔记中进行记录。</p></p>
+            <p class="article-more-link">
+                <a href="/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html#more">查看更多</a>
+            </p>
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html" data-id="ckghsrbyz0005jn6qs7iv4rh2" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1467,7 +1467,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html" data-id="ckghsl62w00097f6q8f4a8yr7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html" data-id="ckghsrbz6000ajn6q0akrt268" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1558,7 +1558,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2020/01/12/2020-03-05-source-code-reading-express-router.html" class="thumbnail">
+                            <a href="/2020/05/23/2020-05-30-source-code-reading-Egg-starting.html" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -1569,15 +1569,15 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/SourceCodeReading/">SourceCodeReading</a></p>
-                            <p class="item-title"><a href="/2020/01/12/2020-03-05-source-code-reading-express-router.html" class="title">Express源码阅读-router相关</a></p>
-                            <p class="item-date"><time datetime="2020-01-12T04:30:00.000Z" itemprop="datePublished">2020-01-12</time></p>
+                            <p class="item-title"><a href="/2020/05/23/2020-05-30-source-code-reading-Egg-starting.html" class="title">EggJS源码阅读-启动流程与代码实现</a></p>
+                            <p class="item-date"><time datetime="2020-05-23T04:30:00.000Z" itemprop="datePublished">2020-05-23</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html" class="thumbnail">
+                            <a href="/2020/03/15/2020-03-05-source-code-reading-express-router.html" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -1588,8 +1588,8 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/SourceCodeReading/">SourceCodeReading</a></p>
-                            <p class="item-title"><a href="/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html" class="title">EggJS源码阅读-启动流程与代码实现</a></p>
-                            <p class="item-date"><time datetime="2020-01-12T04:30:00.000Z" itemprop="datePublished">2020-01-12</time></p>
+                            <p class="item-title"><a href="/2020/03/15/2020-03-05-source-code-reading-express-router.html" class="title">Express源码阅读-router相关</a></p>
+                            <p class="item-date"><time datetime="2020-03-15T04:30:00.000Z" itemprop="datePublished">2020-03-15</time></p>
                         </div>
                     </li>
                 
@@ -1670,7 +1670,7 @@
         <div class="widget-corner"></div>
         <h3 class="widget-title">Archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
