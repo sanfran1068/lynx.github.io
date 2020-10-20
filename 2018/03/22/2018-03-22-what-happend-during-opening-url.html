@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>从输入URL到页面加载发生了什么之进阶篇 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="文章来源：https://segmentfault.com/a/1190000006879700文章优点：采用总分总的形式进行撰写，结构和章节明确，发散较广。 文章首先指出整个过程分为六大步骤： DNS解析 TCP连接 发送HTTP请求 服务器处理请求并返回HTTP报文 浏览器解析渲染页面 连接结束  DNS解析：将网站的【姓名】翻译成【身份证号】，是一个翻译的过程。这个过程是将网址从右到左进行解">
+<meta name="keywords" content="基础知识,JavaScript,读书笔记,HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从输入URL到页面加载发生了什么之进阶篇">
+<meta property="og:url" content="http://keefe.wang/2018/03/22/2018-03-22-what-happend-during-opening-url.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="文章来源：https://segmentfault.com/a/1190000006879700文章优点：采用总分总的形式进行撰写，结构和章节明确，发散较广。 文章首先指出整个过程分为六大步骤： DNS解析 TCP连接 发送HTTP请求 服务器处理请求并返回HTTP报文 浏览器解析渲染页面 连接结束  DNS解析：将网站的【姓名】翻译成【身份证号】，是一个翻译的过程。这个过程是将网址从右到左进行解">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiIwN2JkOWFiOS0zZTYyLTQzNTMtYmQ3YS0yNWE2ZjA4ZDk0MGEifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI1ZWRmZWExMC0xOTAwLTQzMmYtYTUwZS1lYmVkZjI4YzIxY2QifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI3Njc1ZTE1ZS1hZjZhLTRlMmItYmZmNC05OTU3ZGIzM2YyNzYifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI4MTNmMmU1Yi05M2I5LTQ5NTItYWIzYy0yZmE1NzA2ZjQ5YmMifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI1ZWEwYjRlMi03ZTg1LTRjNzAtOGNhMi0yMjc2NGExZWE2NGYifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiJhODJiMjU2NS1kNTFiLTQzYjMtOTZkYS0wNzIwNmE3MTRlYjYifQ==">
+<meta property="og:updated_time" content="2020-10-20T09:29:19.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从输入URL到页面加载发生了什么之进阶篇">
+<meta name="twitter:description" content="文章来源：https://segmentfault.com/a/1190000006879700文章优点：采用总分总的形式进行撰写，结构和章节明确，发散较广。 文章首先指出整个过程分为六大步骤： DNS解析 TCP连接 发送HTTP请求 服务器处理请求并返回HTTP报文 浏览器解析渲染页面 连接结束  DNS解析：将网站的【姓名】翻译成【身份证号】，是一个翻译的过程。这个过程是将网址从右到左进行解">
+<meta name="twitter:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiIwN2JkOWFiOS0zZTYyLTQzNTMtYmQ3YS0yNWE2ZjA4ZDk0MGEifQ==">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2018-03-22-what-happend-during-opening-url" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            从输入URL到页面加载发生了什么之进阶篇
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/03/22/2018-03-22-what-happend-during-opening-url.html">
+            <time datetime="2018-03-22T04:00:00.000Z" itemprop="datePublished">2018-03-22</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Reading/">Reading</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/HTTP/">HTTP</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>, <a class="tag-link" href="/tags/读书笔记/">读书笔记</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <p>文章来源：<a href="https://segmentfault.com/a/1190000006879700" target="_blank" rel="external">https://segmentfault.com/a/1190000006879700</a><br>文章优点：采用总分总的形式进行撰写，结构和章节明确，发散较广。</p>
+<h4 id="文章首先指出整个过程分为六大步骤："><a href="#文章首先指出整个过程分为六大步骤：" class="headerlink" title="文章首先指出整个过程分为六大步骤："></a>文章首先指出整个过程分为六大步骤：</h4><ul>
+<li>DNS解析</li>
+<li>TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束</li>
+</ul>
+<h4 id="DNS解析："><a href="#DNS解析：" class="headerlink" title="DNS解析："></a>DNS解析：</h4><p>将网站的【姓名】翻译成【身份证号】，是一个翻译的过程。<br>这个过程是将网址从右到左进行解析和查询的过程。.=&gt;com=&gt;google.com<br>为了查询效率，DNS解析简历起多级缓存（浏览器缓存，系统缓存，路由器缓存，IPS服务器缓存，根域名服务器缓存，顶级域名服务器缓存，主域名服务器缓存）<br>为了均衡地发送和处理请求，DNS进行负载均衡（DNS重定向），CDN也是利用了该技术，根据每台机器负载量、地理位置距离等返回给用户最优的一个IP地址<br>没有使用CDN时请求服务器资源：localDNS-rootDNS-逐级查询到域名授权的DNS记录-使用查询到的ip去请求内容<br>使用了CDN之后：localDNS-rootDNS-逐级查询到域名授权的DNS记录-向DNS服务器请求最优ip地址-使用该ip去CDN节点服务器返回对应的资源</p>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiIwN2JkOWFiOS0zZTYyLTQzNTMtYmQ3YS0yNWE2ZjA4ZDk0MGEifQ==" alt="DNS解析流程图"></p>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI1ZWRmZWExMC0xOTAwLTQzMmYtYTUwZS1lYmVkZjI4YzIxY2QifQ==" alt="DNS解析流程图"></p>
+<h4 id="TCP连接"><a href="#TCP连接" class="headerlink" title="TCP连接"></a>TCP连接</h4><p>网站请求大部分使用http请求，http协议是使用tcp作为其传输层协议，（应用http、传输tcp、网络ip、数据、物理），http由tcp报文中提取。<br>由于http报文为明文存在一定风险，所以在http报文包裹入tcp报文之前使用ssl对其进行加密。<br>https在原有tcp握手的基础上需要提前进行一个解密握手。https会有时间损耗，需要在安全和性能两者做出权衡。（公钥加密报文，私钥加密公钥）</p>
+<h4 id="发送HTTP请求"><a href="#发送HTTP请求" class="headerlink" title="发送HTTP请求"></a>发送HTTP请求</h4><p>请求报文：请求行（请求方法、内容、协议），请求报头（Accept、Content-Type、Cookie、User-Agent）、请求正文（POST/PUT时会有）<br>响应报文：状态码、响应报头、相应报文<br>状态码：<br>1xx：指示信息–表示请求已接收，继续处理。<br>2xx：成功–表示请求已被成功接收、理解、接受。<br>3xx：重定向–要完成请求必须进行更进一步的操作。4xx：客户端错误–请求有语法错误或请求无法实现。5xx：服务器端错误–服务器未能实现合法的请求。</p>
+<h4 id="浏览器解析渲染页面"><a href="#浏览器解析渲染页面" class="headerlink" title="浏览器解析渲染页面"></a>浏览器解析渲染页面</h4><p>文档来源：<a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork" target="_blank" rel="external">https://www.html5rocks.com/en/tutorials/internals/howbrowserswork</a><br>主要文章：<a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_rendering_engine" target="_blank" rel="external">https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#The_rendering_engine</a><br>总流程：<br><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI3Njc1ZTE1ZS1hZjZhLTRlMmItYmZmNC05OTU3ZGIzM2YyNzYifQ==" alt="浏览器解析渲染页面总流程"></p>
+<p>没有脚本的流程：<br><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI4MTNmMmU1Yi05M2I5LTQ5NTItYWIzYy0yZmE1NzA2ZjQ5YmMifQ==" alt="没有脚本的流程"></p>
+<p>HTML Parsing: 输出DOM tree<br>HTML不是一种context free grammar，是因为它不同于XML，它允许一些类似标签缺失等的容错<br>分为两部分：tokenize和tree construction<br>Tokenize：状态机实现，初始状态为DATA，遇到&lt;状态改为TAGOPEN，之后遇到第一个a-z的字符状态改为TAGNAME，之后遇到&gt;状态改为DATA，直到&lt;/&gt;，tokenize就commit一个token，<br>Tree Construction：状态机实现。Document Object在token的parser创建时同时创建，每当一个token被commited，constroctor会判断该token跟哪个dom元素相关，新建该token的元素，并添加到开放元素栈（这个栈用于检查标签闭合以及未正常闭合标签）中：<br><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiI1ZWEwYjRlMi03ZTg1LTRjNzAtOGNhMi0yMjc2NGExZWE2NGYifQ==" alt="DOM tree 生成"></p>
+<p>css和js的parse过程：<br>Firefox blocks all scripts when there is a style sheet that is still being loaded and parsed.<br>WebKit blocks scripts only when they try to access certain style properties that may be affected by unloaded style sheets.<br>文章的优点：<br>从dom tree的构建的词法分析层面指出一些标签错误以及兼容方式，从语法分析层面指出了类似<table><table></table></table>这种情况应当怎样处理。<br>render tree构建过程中，构建方法对head标签以及display:none的标签不予插入树结构中，而hidden则会存在在结构当中。</p>
+<p>Web优化<br>雅虎35条军规：<a href="https://juejin.im/post/5b73ef38f265da281e048e51" target="_blank" rel="external">https://juejin.im/post/5b73ef38f265da281e048e51</a><br><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiNmMwYzU1MDItZTBkNy00MmUxLWJmNzctZTZiZmQzN2RhMDI0IiwicmVzb3VyY0d1aWQiOiJhODJiMjU2NS1kNTFiLTQzYjMtOTZkYS0wNzIwNmE3MTRlYjYifQ==" alt="35条军规"></p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2018/03/22/2018-03-22-what-happend-during-opening-url.html" data-id="ckghsl65700387f6q3xb8gurl" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/01/2019-12-01-Vue-source-code-reading-data-binding.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    源码阅读 - Vue的数据响应式原理
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JS语言精粹中的精粹</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -4,18 +4,262 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html</loc>
-    <lastmod>2017-10-15T14:14:04.000Z</lastmod>
+    <loc>http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html</loc>
+    <lastmod>2020-10-20T09:48:27.902Z</lastmod>
     <data>
         <display>
-        <title>JS语言精粹中的精粹</title>
-        <pubTime>2017-10-10T04:00:00.000Z</pubTime>
+        <title>Babel的使用方法</title>
+        <pubTime>2017-09-21T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>Babel</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/09/21/2017-10-05-http-primary-knowledge-in-Frontend.html</loc>
+    <lastmod>2020-10-20T09:48:27.890Z</lastmod>
+    <data>
+        <display>
+        <title>前端要学习的http基础知识</title>
+        <pubTime>2017-09-21T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>Http</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2019/12/01/2019-12-01-Vue-source-code-reading-data-binding.html</loc>
+    <lastmod>2020-10-20T09:44:41.239Z</lastmod>
+    <data>
+        <display>
+        <title>源码阅读 - Vue的数据响应式原理</title>
+        <pubTime>2019-12-01T02:00:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>源码学习</tag>
+         
+        <tag>VUE</tag>
+         
+        <tag>数据响应</tag>
+         
+         
+           
+             
+              <breadCrumb title="SourceCodeReading" url="http://keefe.wang/categories/SourceCodeReading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html</loc>
+    <lastmod>2020-10-20T09:44:35.044Z</lastmod>
+    <data>
+        <display>
+        <title>EggJS源码阅读-启动流程与代码实现</title>
+        <pubTime>2020-01-12T04:30:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>源码学习</tag>
+         
+        <tag>EggJS</tag>
+         
+        <tag>NodeJS</tag>
+         
+         
+           
+             
+              <breadCrumb title="SourceCodeReading" url="http://keefe.wang/categories/SourceCodeReading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2020/01/12/2020-03-05-source-code-reading-express-router.html</loc>
+    <lastmod>2020-10-20T09:42:44.873Z</lastmod>
+    <data>
+        <display>
+        <title>Express源码阅读-router相关</title>
+        <pubTime>2020-01-12T04:30:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>源码学习</tag>
+         
+        <tag>NodeJS</tag>
+         
+        <tag>Express</tag>
+         
+         
+           
+             
+              <breadCrumb title="SourceCodeReading" url="http://keefe.wang/categories/SourceCodeReading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2020/01/12/2020-01-12-Javascript-module-history.html</loc>
+    <lastmod>2020-10-20T09:36:13.923Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript模块化</title>
+        <pubTime>2020-01-12T04:30:00.000Z</pubTime>
         
         <tag>JavaScript</tag>
          
         <tag>读书笔记</tag>
          
+        <tag>规范</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reading" url="http://keefe.wang/categories/Reading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2020/01/09/2020-01-09-how-to-be-a-pragmatic-programmer.html</loc>
+    <lastmod>2020-10-20T09:31:35.028Z</lastmod>
+    <data>
+        <display>
+        <title>怎样做一个Pragmatic Programmer</title>
+        <pubTime>2020-01-09T04:30:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>规范</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reading" url="http://keefe.wang/categories/Reading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2019/12/21/2019-12-21-clean-code-note.html</loc>
+    <lastmod>2020-10-20T09:29:42.058Z</lastmod>
+    <data>
+        <display>
+        <title>Clean Code规范整理</title>
+        <pubTime>2019-12-21T03:30:00.000Z</pubTime>
+        
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>规范</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reading" url="http://keefe.wang/categories/Reading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2018/03/22/2018-03-22-what-happend-during-opening-url.html</loc>
+    <lastmod>2020-10-20T09:29:19.202Z</lastmod>
+    <data>
+        <display>
+        <title>从输入URL到页面加载发生了什么之进阶篇</title>
+        <pubTime>2018-03-22T04:00:00.000Z</pubTime>
+        
         <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reading" url="http://keefe.wang/categories/Reading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html</loc>
+    <lastmod>2020-10-20T08:55:23.857Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown</title>
+        <pubTime>2014-12-24T16:31:00.000Z</pubTime>
+        
+        <tag>Markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html</loc>
+    <lastmod>2020-10-20T08:55:20.270Z</lastmod>
+    <data>
+        <display>
+        <title>JS语言精粹中的精粹</title>
+        <pubTime>2017-10-10T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
          
          
            
@@ -29,7 +273,7 @@
     
   <url>
     <loc>http://keefe.wang/2017/10/08/2017-10-08-shape-grammar-learning-notes.html</loc>
-    <lastmod>2017-10-15T13:58:37.000Z</lastmod>
+    <lastmod>2020-10-20T08:55:17.800Z</lastmod>
     <data>
         <display>
         <title>形状文法简介</title>
@@ -50,224 +294,18 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html</loc>
-    <lastmod>2017-10-13T05:19:34.000Z</lastmod>
+    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
+    <lastmod>2020-10-20T08:55:12.173Z</lastmod>
     <data>
         <display>
-        <title>Babel的使用方法</title>
-        <pubTime>2017-09-21T04:00:00.000Z</pubTime>
-        
-        <tag>JavaScript</tag>
-         
-        <tag>基础知识</tag>
-         
-        <tag>Babel</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html</loc>
-    <lastmod>2017-10-10T13:40:07.000Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript正则表达式学习笔记[上]</title>
-        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
-        
-        <tag>JavaScript</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
-         
-        <tag>正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html</loc>
-    <lastmod>2017-10-10T13:20:04.000Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript中的原型与继承-继承篇</title>
-        <pubTime>2017-04-13T04:00:00.000Z</pubTime>
-        
-        <tag>JavaScript</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
-         
-        <tag>原型</tag>
-         
-        <tag>继承</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html</loc>
-    <lastmod>2017-10-10T13:05:39.000Z</lastmod>
-    <data>
-        <display>
-        <title>IJavascript-个人在线前端代码解释器安装与使用</title>
-        <pubTime>2017-05-09T04:00:00.000Z</pubTime>
-        
-        <tag>Jupyter</tag>
-         
-        <tag>前端</tag>
-         
-        <tag>解释器</tag>
-         
-        <tag>说明书</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html</loc>
-    <lastmod>2017-10-09T09:16:16.000Z</lastmod>
-    <data>
-        <display>
-        <title>LESS官方文档学习笔记</title>
+        <title>ES6入门必须了解的知识（上）</title>
         <pubTime>2017-08-02T04:00:00.000Z</pubTime>
         
+        <tag>基础知识</tag>
+         
         <tag>JavaScript</tag>
          
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html</loc>
-    <lastmod>2017-10-09T09:15:53.000Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript高级程序设计笔记整理</title>
-        <pubTime>2017-05-09T04:00:00.000Z</pubTime>
-        
-        <tag>JavaScript</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Jena学习笔记</title>
-        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
-        
-        <tag>基础知识</tag>
-         
-        <tag>Ontology</tag>
-         
-        <tag>JenaAPI</tag>
-         
-        <tag>API</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>CSS中的伪类与伪元素</title>
-        <pubTime>2017-03-10T04:00:00.000Z</pubTime>
-        
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
-         
-        <tag>CSS3</tag>
-         
-        <tag>Selector</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Node-js基础学习笔记</title>
-        <pubTime>2016-12-13T04:00:00.000Z</pubTime>
-        
-        <tag>JavaScript</tag>
-         
-        <tag>Nodejs</tag>
-         
-        <tag>读书笔记</tag>
-         
-        <tag>基础知识</tag>
+        <tag>ES6</tag>
          
          
            
@@ -281,7 +319,7 @@
     
   <url>
     <loc>http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <lastmod>2020-10-20T08:55:09.843Z</lastmod>
     <data>
         <display>
         <title>使用Leaflet插件在浏览器加载地图</title>
@@ -306,62 +344,92 @@
 
     
   <url>
-    <loc>http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <loc>http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html</loc>
+    <lastmod>2020-10-20T08:55:07.530Z</lastmod>
     <data>
         <display>
-        <title>ES6入门必须了解的知识（上）</title>
+        <title>LESS官方文档学习笔记</title>
         <pubTime>2017-08-02T04:00:00.000Z</pubTime>
         
-        <tag>JavaScript</tag>
-         
         <tag>基础知识</tag>
          
-        <tag>ES6</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2014/12/25/2014-12-25-markdown-programming-language.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown</title>
-        <pubTime>2014-12-24T16:31:00.000Z</pubTime>
-        
-        <tag>Markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>JavaScript中的原型与继承-原型篇</title>
-        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
-        
         <tag>JavaScript</tag>
          
         <tag>读书笔记</tag>
          
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html</loc>
+    <lastmod>2020-10-20T08:55:05.193Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript高级程序设计笔记整理</title>
+        <pubTime>2017-05-09T04:00:00.000Z</pubTime>
+        
         <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html</loc>
+    <lastmod>2020-10-20T08:55:02.269Z</lastmod>
+    <data>
+        <display>
+        <title>IJavascript-个人在线前端代码解释器安装与使用</title>
+        <pubTime>2017-05-09T04:00:00.000Z</pubTime>
+        
+        <tag>Jupyter</tag>
+         
+        <tag>前端</tag>
+         
+        <tag>解释器</tag>
+         
+        <tag>说明书</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/04/13/2017-04-13-JavaScript-Prototype-and-Inheritance-2.html</loc>
+    <lastmod>2020-10-20T08:54:59.265Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript中的原型与继承-继承篇</title>
+        <pubTime>2017-04-13T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
          
         <tag>原型</tag>
          
@@ -378,18 +446,150 @@
 
     
   <url>
+    <loc>http://keefe.wang/2017/04/12/2017-04-12-JavaScript-Prototype-and-Inheritance-1.html</loc>
+    <lastmod>2020-10-20T08:54:55.735Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript中的原型与继承-原型篇</title>
+        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>原型</tag>
+         
+        <tag>继承</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/03/10/2017-03-10-pseudoCSS-part1-pseudoElement-pseudoClass-note.html</loc>
+    <lastmod>2020-10-20T08:54:52.621Z</lastmod>
+    <data>
+        <display>
+        <title>CSS中的伪类与伪元素</title>
+        <pubTime>2017-03-10T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>CSS3</tag>
+         
+        <tag>Selector</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2017/04/12/2017-03-20-JavaScript-RegExpression-learning-note.html</loc>
+    <lastmod>2020-10-20T08:54:51.668Z</lastmod>
+    <data>
+        <display>
+        <title>JavaScript正则表达式学习笔记[上]</title>
+        <pubTime>2017-04-12T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://keefe.wang/2015/09/21/2015-09-21-ontology-concepts-conclusion.html</loc>
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    <lastmod>2020-10-20T08:54:46.248Z</lastmod>
     <data>
         <display>
         <title>Ontology本体基础知识总结整理</title>
         <pubTime>2015-09-21T04:00:00.000Z</pubTime>
         
-        <tag>基础知识</tag>
-         
         <tag>Knowledge Base</tag>
          
         <tag>Ontology</tag>
+         
+        <tag>基础知识</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2015/09/21/2015-11-20-jena-learning-note.html</loc>
+    <lastmod>2020-10-20T08:54:45.534Z</lastmod>
+    <data>
+        <display>
+        <title>Jena学习笔记</title>
+        <pubTime>2015-09-21T04:00:00.000Z</pubTime>
+        
+        <tag>Ontology</tag>
+         
+        <tag>基础知识</tag>
+         
+        <tag>JenaAPI</tag>
+         
+        <tag>API</tag>
+         
+         
+           
+             
+              <breadCrumb title="Document" url="http://keefe.wang/categories/Document/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://keefe.wang/2016/12/13/2016-12-13-nodejs-basic-learning-note.html</loc>
+    <lastmod>2020-10-20T08:54:42.866Z</lastmod>
+    <data>
+        <display>
+        <title>Node-js基础学习笔记</title>
+        <pubTime>2016-12-13T04:00:00.000Z</pubTime>
+        
+        <tag>基础知识</tag>
+         
+        <tag>JavaScript</tag>
+         
+        <tag>Nodejs</tag>
+         
+        <tag>读书笔记</tag>
          
          
            

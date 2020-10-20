@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>源码阅读 - Vue的数据响应式原理 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="什么是数据响应式 Vue.js 一个核心思想是数据驱动。所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。——《Vue.js技术揭秘》  没有像 Vue 和 React 这些具有数据响应式特性的前端框架之前，我们从服务端提供过的接口获取到数据要渲染在 html 页面上时，抑或是需要获取表单的值进行计算回显到页面上时，都需要建立很多 DOM 事件监听">
+<meta name="keywords" content="JavaScript,源码学习,VUE,数据响应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码阅读 - Vue的数据响应式原理">
+<meta property="og:url" content="http://keefe.wang/2019/12/01/2019-12-01-Vue-source-code-reading-data-binding.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="什么是数据响应式 Vue.js 一个核心思想是数据驱动。所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。——《Vue.js技术揭秘》  没有像 Vue 和 React 这些具有数据响应式特性的前端框架之前，我们从服务端提供过的接口获取到数据要渲染在 html 页面上时，抑或是需要获取表单的值进行计算回显到页面上时，都需要建立很多 DOM 事件监听">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiI2MTI4MTIwZS1kNWUxLTQxZDgtODFkOS1hNTIyNWM1ODM4Y2MifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiIzZTI1NmNmOS1iOWQ4LTRlYjQtOWJiMy1iNTI4ZDU3MWZlYmMifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiJkZjIxMjIzYi0zN2NkLTQyNTgtOTVhYi02NjM4MzNkZjFlZTIifQ==">
+<meta property="og:image" content="evernotecid://954D5E79-AC85-4E89-863E-EB8C8DEE61D9/appyinxiangcom/23187233/ENResource/p11">
+<meta property="og:updated_time" content="2020-10-20T09:44:41.239Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码阅读 - Vue的数据响应式原理">
+<meta name="twitter:description" content="什么是数据响应式 Vue.js 一个核心思想是数据驱动。所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。——《Vue.js技术揭秘》  没有像 Vue 和 React 这些具有数据响应式特性的前端框架之前，我们从服务端提供过的接口获取到数据要渲染在 html 页面上时，抑或是需要获取表单的值进行计算回显到页面上时，都需要建立很多 DOM 事件监听">
+<meta name="twitter:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiI2MTI4MTIwZS1kNWUxLTQxZDgtODFkOS1hNTIyNWM1ODM4Y2MifQ==">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2019-12-01-Vue-source-code-reading-data-binding" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            源码阅读 - Vue的数据响应式原理
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/12/01/2019-12-01-Vue-source-code-reading-data-binding.html">
+            <time datetime="2019-12-01T02:00:00.000Z" itemprop="datePublished">2019-12-01</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/SourceCodeReading/">SourceCodeReading</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/VUE/">VUE</a>, <a class="tag-link" href="/tags/数据响应/">数据响应</a>, <a class="tag-link" href="/tags/源码学习/">源码学习</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <h3 id="什么是数据响应式"><a href="#什么是数据响应式" class="headerlink" title="什么是数据响应式"></a>什么是数据响应式</h3><blockquote>
+<p>Vue.js 一个核心思想是数据驱动。所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。——<a href="https://ustbhuangyi.github.io/vue-analysis/v2/data-driven/" target="_blank" rel="external">《Vue.js技术揭秘》</a></p>
+</blockquote>
+<p>没有像 Vue 和 React 这些具有数据响应式特性的前端框架之前，我们从服务端提供过的接口获取到数据要渲染在 html 页面上时，抑或是需要获取表单的值进行计算回显到页面上时，都需要建立很多 DOM 事件监听器，并进行许多的 DOM 操作。举个最简单的例子：用户在 html 页面的表单中输入两个加数 a 和 b ，计算得到两个加数之和，并展示到页面上。这时我们需要监听表单中 a 和 b 两个输入框的变化，拿到变化值相加然后通过修改指定 id 或者 class 的选择器对应的 DOM 来修改两数之和。但是当输入表单不止两个时，就会令人捉急。</p>
+<p>而 Vue 的数据响应式大大地优化了这一整套的流程。面对大量的 UI 交互和数据更新，数据响应式让我们做到从容不迫——我们需要去了解数据的改变是怎样被触发，更新触发后的数据改变又是怎样反馈到视图。接下来我们通过对部分 Vue 源码的简单分析和学习来深入了解 Vue 中的数据响应式是怎样实现的。</p>
+<p>我们将这一部分的代码分析大致分为三部分：让数据变成响应式、依赖收集和派发更新。</p>
+<h3 id="数据响应式的中心思想"><a href="#数据响应式的中心思想" class="headerlink" title="数据响应式的中心思想"></a>数据响应式的中心思想</h3><p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiI2MTI4MTIwZS1kNWUxLTQxZDgtODFkOS1hNTIyNWM1ODM4Y2MifQ==" alt="5de7af21d4c2de951720c006f84b98fc.png"></p>
+<p>该原理图源自 Vue 官方教程的<a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external">深入响应式原理</a>，这张图向我们展示了 Vue 的数据响应式的中心思想。</p>
+<p>我们先来介绍图中的四个模块，<strong>黄色部分</strong>是 Vue 的渲染方法，视图初始化和视图更新时都会调用 <code>vm._render</code> 方法进行重新渲染。渲染时不可避免地会 touch 到每个需要展示到视图上的数据（<strong>紫色部分</strong>），触发这些数据的 get 方法从而收集到本次渲染的所有依赖。收集依赖和更新派发都是基于<strong>蓝色部分</strong>的 Watcher 观察者。而当我们在修改这些收集到依赖的数据时，会触发数据中的 set 属性方法，该方法会修改数据的值并 notify 到依赖到它的观察者，从而触发视图的重新渲染。<strong>绿色部分</strong>是渲染过程中生成的 Virtual DOM Tree，这棵树不仅关系到视图渲染，更是 Vue 优化视图更新过程的基础。</p>
+<h3 id="让数据变成响应式"><a href="#让数据变成响应式" class="headerlink" title="让数据变成响应式"></a>让数据变成响应式</h3><p>基本上大家都了解 Vue 的数据响应式原理是由 JS标准内置对象方法 <strong>Object.defineProperty</strong> 来实现的，而这个方法是<strong>不兼容IE8和FF22及以下版本</strong>的浏览器的，所以 Vue 也只能在这些版本之上的浏览器中才能正常使用。这个方法的作用是直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。那么数据响应式用这个方法为<strong>什么对象</strong>添加或修改了<strong>什么属性</strong>呢？我们从 Vue 的初始化讲起。</p>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiIzZTI1NmNmOS1iOWQ4LTRlYjQtOWJiMy1iNTI4ZDU3MWZlYmMifQ==" alt="99d9a00af95016a8e9b0b558fd4249ab.png"></p>
+<h4 id="Vue-的初始化"><a href="#Vue-的初始化" class="headerlink" title="Vue 的初始化"></a>Vue 的初始化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="keyword">this</span>._init(options)</div><div class="line">&#125;</div><div class="line">initMixin(Vue)     </div><div class="line">stateMixin(Vue)     </div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</div></pre></td></tr></table></figure>
+<p>在 <a href="https://github.com/DQFE/vue/blob/dev/src/core/index.js#L1" target="_blank" rel="external"><em>src/core/index.js</em></a> 中我们可以看到一个 Vue 被导出，这个Vue是在 <em>src/core/instance/index</em> 中定义的，Vue 是一个方法，参数是options，我们大胆猜想这个 Vue 就是进行 vue 实例化的方法，而 options 就是我们传入的 data、computed、methods 等属性。这个 Vue 方法中主要调用了 _init 方法，这个方法是在 initMixin 方法调用时定义在 Vue 原型上的一个方法，_init 方法中对当前传入的 options 进行了一些处理（主要是判断当前实例化的是否为组件，使用 mergeOptions 方法对 options 进行加工，此处不做赘述），然后又调用了一系列方法进行了生命周期、事件、渲染器的初始化，我们主要来关注 <strong>initState</strong> 这个方法（<a href="https://github.com/DQFE/vue/blob/dev/src/core/instance/state.js#L48" target="_blank" rel="external"><em>src/core/instance/state.js</em></a>）:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initState</span> (<span class="params">vm: Component</span>) </span>&#123;</div><div class="line">    vm._watchers = []</div><div class="line">    <span class="keyword">const</span> opts = vm.$options</div><div class="line">    <span class="keyword">if</span> (opts.props) initProps(vm, opts.props)</div><div class="line">    <span class="keyword">if</span> (opts.methods) initMethods(vm, opts.methods)</div><div class="line">    <span class="comment">// a*</span></div><div class="line">    <span class="keyword">if</span> (opts.data) &#123;</div><div class="line">        initData(vm)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        observe(vm._data = &#123;&#125;, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (opts.computed) initComputed(vm, opts.computed)</div><div class="line">    <span class="keyword">if</span> (opts.watch &amp;&amp; opts.watch !== nativeWatch) &#123;</div><div class="line">        initWatch(vm, opts.watch)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="将-Vue-实例上的-data-响应式化"><a href="#将-Vue-实例上的-data-响应式化" class="headerlink" title="将 Vue 实例上的 data 响应式化"></a>将 Vue 实例上的 data 响应式化</h4><p>上面的方法中对props、methods、data、computed和watch进行了初始化，这些都是Vue实例化方法中传入参数options对象的一些属性，这些属性都需要被<strong>响应式化</strong>。而针对于data的初始化分了两种情况[a<em>]，一种是options中没有data属性的，该方法会给data赋值一个空对象并进行observe（该方法之后我们会详细讲述），如果有data属性，则调用[<em>*initData</em></em>](<a href="https://github.com/DQFE/vue/blob/dev/src/core/instance/state.js#L112)方法进行初始化。我们主要通过对data属性的初始化来分析Vue中的数据响应式原理。" target="_blank" rel="external">https://github.com/DQFE/vue/blob/dev/src/core/instance/state.js#L112)方法进行初始化。我们主要通过对data属性的初始化来分析Vue中的数据响应式原理。</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">initData</span> (<span class="params">vm: Component</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> data = vm.$options.data</div><div class="line">    <span class="comment">// a*</span></div><div class="line">    data = vm._data = <span class="keyword">typeof</span> data === <span class="string">'function'</span></div><div class="line">    ? getData(data, vm)</div><div class="line">    : data || &#123;&#125;</div><div class="line">    <span class="keyword">if</span> (!isPlainObject(data)) &#123;</div><div class="line">        data = &#123;&#125;</div><div class="line">        process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; warn(</div><div class="line">          <span class="string">'data functions should return an object:\n'</span> +</div><div class="line">          <span class="string">'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function'</span>,</div><div class="line">          vm</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// b*</span></div><div class="line">    <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(data)</div><div class="line">    <span class="keyword">const</span> props = vm.$options.props</div><div class="line">    <span class="keyword">const</span> methods = vm.$options.methods</div><div class="line">    <span class="keyword">let</span> i = keys.length</div><div class="line">    <span class="keyword">while</span> (i--) &#123;</div><div class="line">        <span class="comment">// c*</span></div><div class="line">        <span class="keyword">const</span> key = keys[i]</div><div class="line">        <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</div><div class="line">          <span class="keyword">if</span> (methods &amp;&amp; hasOwn(methods, key)) &#123;</div><div class="line">            warn(</div><div class="line">              <span class="string">`Method "<span class="subst">$&#123;key&#125;</span>" has already been defined as a data property.`</span>,</div><div class="line">              vm</div><div class="line">            )</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (props &amp;&amp; hasOwn(props, key)) &#123;</div><div class="line">          process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; warn(</div><div class="line">            <span class="string">`The data property "<span class="subst">$&#123;key&#125;</span>" is already declared as a prop. `</span> +</div><div class="line">            <span class="string">`Use prop default value instead.`</span>,</div><div class="line">            vm</div><div class="line">          )</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isReserved(key)) &#123;</div><div class="line">          proxy(vm, <span class="string">`_data`</span>, key)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// d*</span></div><div class="line">    observe(data, <span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>initData 方法对 options 中的 data 进行处理，主要是有<strong>两个目的</strong>:</p>
+<ul>
+<li>一方面<strong>将 data 代理到 Vue 实例上</strong>，同时检查 data 中是否使用了 Vue 中的保留字、是否与 props、methods 属性中的数据同名</li>
+<li>使用 <strong>observe</strong> 方法将data中的属性变成响应式的</li>
+</ul>
+<p>之前我们提到在调用 initState 方法之前会有对 Vue 实例化传入的 options 参数进行处理的环节（mergeOptions），这个过程会将 data 处理成一个函数（例如我们在 vue 组件中的 data 属性），之后会调用 <code>callHook(vm, &#39;beforeCreate&#39;)</code> 方法来触发 beforeCreate 的生命周期钩子，这个方法的调用可能会对 data 属性进行进一步处理，所以方法一开始会<strong>对 data 统一做处理使其成为一个function</strong>[a*]。</p>
+<p>接下来会对 data 中的每一个数据进行遍历[b<em>]，遍历过程将会使用  <code>hasOwn(methods, key)</code>、<code>hasOwn(props, key)</code>、<code>!isReserved(key)</code> 方法对该数据是否占用保留字、是否与 props 和 methods 中的属性重名进行判断，然后调用 proxy 方法将其代理到 Vue 实例上。此处需要注意的是：<em>*如果 data 中的属性与 props、methods 中的属性重名，那么在 Vue 实例上调用这个属性时的优先级顺序是 props &gt; methods &gt; data</em></em>。</p>
+<p>最后对每一个 data 中的属性调用 <code>observe</code> 方法，该方法的功能是赋予 data 中的属性可被监测的特性。这个方法和其中使用到的 Observe 类是在<a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/index.js#L37" target="_blank" rel="external"><em>src/core/observer/index.js</em></a>文件中，observe 方法主要是调用<strong>Observer类构造方法</strong>，将每一个 data中的 value 变成可观察、响应式的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">constructor</span> (value: any) &#123;</div><div class="line">    <span class="keyword">this</span>.value = value</div><div class="line">    <span class="keyword">this</span>.dep = <span class="keyword">new</span> Dep()</div><div class="line">    <span class="keyword">this</span>.vmCount = <span class="number">0</span></div><div class="line">    </div><div class="line">    def(value, <span class="string">'__ob__'</span>, <span class="keyword">this</span>)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">      <span class="comment">//...</span></div><div class="line">      <span class="keyword">this</span>.observeArray(value)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.walk(value)</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到该构造函数有以下几个目的：</p>
+<ul>
+<li>针对当前的数据对象新建一个订阅器；</li>
+<li>为每个数据的value都添加一个<strong>ob</strong>属性，该属性不可枚举并指向自身；</li>
+<li>针对数组类型的数据进行单独处理（包括赋予其数组的属性和方法，以及 observeArray 进行的数组类型数据的响应式）；</li>
+<li>this.walk(value)，遍历对象的 key 调用 defineReactive 方法；</li>
+</ul>
+<p><code>defineReactive</code>是真正为数据添加 get 和 set 属性方法的方法，它将 data 中的数据定义一个响应式对象，并给该对象设置 get 和 set 属性方法，其中 get 方法是对依赖进行收集， set 方法是当数据改变时通知 Watcher 派发更新。</p>
+<h3 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h3><p>依赖收集的原理是：当视图被渲染时，会触发渲染中所使用到的数据的 get 属性方法，通过 get 方法进行依赖收集。</p>
+<p>其真实的逻辑我们举例来说明：当前正在渲染组件 ComponentA，会将当前全局唯一的监听器置为这个 Watcher，这个组件中使用到了数据 <code>data () { return { a: b + 1} }</code>，此时触发b的 getter 会将当前的 watcher 添加到b的订阅者列表 subs 中。也就是说如果 ComponentA 依赖 b，则将该组件的渲染 Watcher 作为订阅者加入b的订阅者列表中。</p>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiMWVmM2MyOWMtYzg4YS00ZDI0LTllYjMtYTUwMmZhNmMwODM0IiwicmVzb3VyY0d1aWQiOiJkZjIxMjIzYi0zN2NkLTQyNTgtOTVhYi02NjM4MzNkZjFlZTIifQ==" alt="1e9dfeb2187b782e42b78196a723f860.jpeg"></p>
+<p>我们先看下 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/index.js#L160" target="_blank" rel="external">get</a> 属性方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">get: <span class="function"><span class="keyword">function</span> <span class="title">reactiveGetter</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> value = getter ? getter.call(obj) : val</div><div class="line">  <span class="keyword">if</span> (Dep.target) &#123;</div><div class="line">    dep.depend()</div><div class="line">    <span class="keyword">if</span> (childOb) &#123;</div><div class="line">      childOb.dep.depend()</div><div class="line">      <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">        dependArray(value)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> value</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Dep-订阅器"><a href="#Dep-订阅器" class="headerlink" title="Dep - 订阅器"></a>Dep - 订阅器</h4><p>数据对象中的 get 方法主要使用 depend 方法进行依赖收集，该方法是 Dep 类中的属性方法，继续来看 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/dep.js#L13" target="_blank" rel="external">Dep 类</a>是怎样实现的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</div><div class="line">    <span class="comment">// a*</span></div><div class="line">    <span class="keyword">static</span> target: ?Watcher;</div><div class="line">    id: number;</div><div class="line">    subs: <span class="built_in">Array</span>&lt;Watcher&gt;;</div><div class="line">    <span class="keyword">constructor</span> () &#123;</div><div class="line">        <span class="keyword">this</span>.id = uid++</div><div class="line">        <span class="keyword">this</span>.subs = []</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    addSub (sub: Watcher) &#123;</div><div class="line">        <span class="keyword">this</span>.subs.push(sub)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    depend () &#123;</div><div class="line">        <span class="keyword">if</span> (Dep.target) &#123;</div><div class="line">            Dep.target.addDep(<span class="keyword">this</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Dep.target = <span class="literal">null</span></div><div class="line"><span class="keyword">const</span> targetStack = []</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">pushTarget</span> (<span class="params">target: ?Watcher</span>) </span>&#123;</div><div class="line">    targetStack.push(target)</div><div class="line">    Dep.target = target</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">popTarget</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    targetStack.pop()</div><div class="line">    Dep.target = targetStack[targetStack.length - <span class="number">1</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Dep 类中有三个属性：<code>target</code>、<code>id</code> 和 <code>subs</code>，分别表示当前全局唯一的静态数据依赖的监听器 Watcher、该属性的 id 以及订阅这个属性数据的订阅者列表[a*]。另外还提供了将订阅者添加到订阅者列表的 <code>addSub方法</code>、从订阅者列表删除订阅者的 <code>removeSub</code> 方法。</p>
+<p><code>Dep.target</code> 是当前全局唯一的订阅者，这是因为同一时间只允许一个订阅者被处理。target 的意思就是指当前正在处理的目标订阅者，而这个订阅者是有一个订阅者栈 <code>targetStack</code>，当某一个组件执行到某个生命周期的 hook 时（例如 mountComponent），会将当前目标订阅者 target 置为这个 watcher，并将其压入 <code>targetStack</code> 栈顶。</p>
+<p>接下来是添加当前数据依赖的 <code>depend方法</code>，<code>Dep.target</code> 对象是一个 Watcher 类的实例，调用 Watcher 类的 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/watcher.js#L128" target="_blank" rel="external">addDep 方法</a>，我们看下 addDep 方法将当前的依赖 Dep 实例放在了哪里：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">addDep (dep: Dep) &#123;</div><div class="line">    <span class="keyword">const</span> id = dep.id</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.newDepIds.has(id)) &#123;</div><div class="line">        <span class="keyword">this</span>.newDepIds.add(id)</div><div class="line">        <span class="keyword">this</span>.newDeps.push(dep)</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.depIds.has(id)) &#123;</div><div class="line">            dep.addSub(<span class="keyword">this</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们稍后会对 Watcher 类进行分析，目前先来简单看下 addDep 这个属性方法做了什么。可以看到入参是一个 Dep 类实例，这个实例实际上是当前全局唯一的订阅者，newDepIds 是当前数据依赖 dep 的 id 列表，newDeps 是当前数据依赖 dep 列表，depsId 则是上一个 tick 的数据依赖的 id 列表。这个方法主要的逻辑就是调用当前数据依赖 dep 的类方法 <code>addSub</code>，而这个方法在上面Dep 类方法中可以看到，就是将当前全局唯一的 watcher 实例放入这个数据依赖的订阅者列表中。</p>
+<h4 id="target-Watcher的产生"><a href="#target-Watcher的产生" class="headerlink" title="target Watcher的产生"></a>target Watcher的产生</h4><p>我们以生命周期中的 <a href="https://github.com/DQFE/vue/blob/dev/src/core/instance/lifecycle.js#L141" target="_blank" rel="external">mountComponent</a> 这一个阶段为例来分析上面提到的Dep.target 这个全局唯一的当前订阅者 Watcher 是怎样产生的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">mountComponent</span> (<span class="params"></span></span></div><div class="line"><span class="function"><span class="params">    vm: Component, </span></span></div><div class="line"><span class="function"><span class="params">    el: ?Element, hydrating?: boolean</span></span></div><div class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="keyword">let</span> updateComponent</div><div class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; config.performance &amp;&amp; mark) &#123; </div><div class="line">        updateComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">// 首次渲染视图会进入，生成虚拟Node，更新DOM&#125;</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        updateComponent = <span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="comment">// 数据更新时会进入，调用渲染函数对视图进行更新</span></div><div class="line">        vm._update(vm._render(), hydrating)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">new</span> Watcher(vm, updateComponent, noop, &#123;</div><div class="line">        before () &#123;</div><div class="line">            <span class="keyword">if</span> (vm._isMounted &amp;&amp; !vm._isDestroyed) &#123;</div><div class="line">                callHook(vm, <span class="string">'beforeUpdate'</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="literal">true</span> <span class="comment">/* isRenderWatcher */</span>)</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="keyword">return</span> vm</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过mountComponent的代码可以看到在触发了<code>beforeMount</code>生命周期钩子后，紧接着创建了一个用于渲染Watcher实例。我们通过Watcher类的构造函数来看创建<a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/watcher.js#L45" target="_blank" rel="external">Watcher</a>实例时做了哪些工作：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">constructor</span> (</div><div class="line">    vm: Component,              // 当前渲染的组件</div><div class="line">    expOrFn: string | Function,  // 当前Watcher实例的getter属性方法</div><div class="line">    cb: Function,               // 回调函数</div><div class="line">    options?: ?Object,          // 手动传入watch时的option</div><div class="line">    isRenderWatcher?: boolean    // 是否为渲染watcher的标识</div><div class="line">  ) &#123;</div><div class="line">    <span class="keyword">this</span>.vm = vm</div><div class="line">    <span class="keyword">if</span> (isRenderWatcher) &#123;</div><div class="line">        vm._watcher = <span class="keyword">this</span></div><div class="line">    &#125;</div><div class="line">    vm._watchers.push(<span class="keyword">this</span>)</div><div class="line">    <span class="comment">// 此处处理我们传入的watcher参数（在组件内手动新建watch属性）</span></div><div class="line">    <span class="keyword">if</span> (options) &#123;&#125; <span class="keyword">else</span> &#123;&#125;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="comment">// parse expression for getter</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> expOrFn === <span class="string">'function'</span>) &#123;</div><div class="line">        <span class="keyword">this</span>.getter = expOrFn</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">this</span>.getter = parsePath(expOrFn)</div><div class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.getter) &#123;</div><div class="line">            <span class="keyword">this</span>.getter = noop</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.value = <span class="keyword">this</span>.lazy ? <span class="literal">undefined</span> : <span class="keyword">this</span>.get()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过 Watcher 类的构造函数传参可以看到 mountComponent 生命周期中创建的 Watcher 是一个渲染 Watcher，将当前的 getter 设置为了 updateComponent 方法（也就是重新渲染视图的方法），最后调用了 get 属性方法，我们接下来看 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/watcher.js#L101" target="_blank" rel="external">get 方法</a>做了什么：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">get () &#123;</div><div class="line">    pushTarget(<span class="keyword">this</span>)</div><div class="line">    <span class="keyword">let</span> value</div><div class="line">    <span class="keyword">const</span> vm = <span class="keyword">this</span>.vm</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        value = <span class="keyword">this</span>.getter.call(vm, vm)</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.user) &#123;</div><div class="line">            handleError(e, vm, <span class="string">`getter for watcher "<span class="subst">$&#123;<span class="keyword">this</span>.expression&#125;</span>"`</span>)</div><div class="line">        &#125; <span class="keyword">else</span> &#123; <span class="keyword">throw</span> e &#125;</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.deep) &#123;</div><div class="line">            traverse(value)</div><div class="line">        &#125;</div><div class="line">        popTarget()</div><div class="line">        <span class="keyword">this</span>.cleanupDeps()</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> value</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>get 方法首先调用了在 <code>Dep类</code>文件中定义的全局方法 pushTarget，将 Dep.target 置为当前正在执行的渲染 Watcher，并将这个 watcher 压到了 targetStack。接下来调用 wathcer 的 getter 方法：由于此时的 getter 就是 updateComponent 方法，执行 updateComponent 方法，也就是 <code>vm._update(vm._render(), hydrating)</code> 进行渲染，渲染过程中必然会 touch 到 data 中相关依赖的属性，此时就会触发各个属性中的 get 方法（也就是将当前的渲染 Watcher 添加到所有渲染中使用到的数据的依赖列表 subs 中）。</p>
+<p>渲染完之后会将当前的渲染 Watcher 从 targetStack 推出，进行下一个 watcher 的任务。最后会进行<em>依赖的清空</em>，每次数据的变化都会引起视图重新渲染，每一次渲染又会进行依赖收集，又会触发 data 中每个属性的 get 方法，这时会有一种情况发生：<code>&lt;div v-if=&quot;someBool&quot;&gt;&lt;/div&gt;&lt;div v-else&gt;&lt;/div&gt;</code> 第一次当 someBool 为真时，进行渲染，当我们把 someBool 的值 update 为 false 时，这时候属性 a 不会被使用，所以如果不进行依赖清空，会导致不必要的依赖通知。依赖清空主要是对 newDeps 进行更新，通过对比本次收集的依赖和之前的依赖进行对比，把不需要的依赖清除。</p>
+<h3 id="派发更新"><a href="#派发更新" class="headerlink" title="派发更新"></a>派发更新</h3><p><img src="evernotecid://954D5E79-AC85-4E89-863E-EB8C8DEE61D9/appyinxiangcom/23187233/ENResource/p11" alt="6ff6878b57427d1b0115d669089d54d3.png"></p>
+<p>当我们修改一个存在 data 属性上的值时，会触发数据中的 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/index.js#L173" target="_blank" rel="external">set 属性方法</a>，首先会判断并修改该属性数据的值，并触发自身的 dep.notify 方法开始更新派发：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">set: <span class="function"><span class="keyword">function</span> <span class="title">reactiveSetter</span> (<span class="params">newVal</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> value = getter ? getter.call(obj) : val</div><div class="line">  <span class="keyword">if</span> (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  childOb = !shallow &amp;&amp; observe(newVal)</div><div class="line">  dep.notify()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来让我们进入<a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/dep.js#L37" target="_blank" rel="external"><code>dep.notify</code></a>这个方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">notify () &#123;</div><div class="line">    <span class="keyword">const</span> subs = <span class="keyword">this</span>.subs.slice()</div><div class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; !config.async) &#123;</div><div class="line">        subs.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.id - b.id)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = subs.length; i &lt; l; i++) &#123;</div><div class="line">      subs[i].update()</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>notify 这个方法是每一个数据在响应式化之后自己内部闭包的 dep 实例的方法，还记得之前讲过的 subs 保存着所有订阅该数据的订阅者，所以在 notify 方法中首先对 subs 这个订阅者序列按照其 id 进行了排序。接下来就是调用每一个订阅者 watcher 实例的 <code>update</code> 方法进行更新的派发。update 方法是在 Watcher 类文件中，使用了队列的方式来管理订阅者的更新派发，其中主要调用了 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/scheduler.js#L164" target="_blank" rel="external"><code>queueWatcher</code></a> 这个方法来实现该逻辑：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">queueWatcher</span> (<span class="params">watcher: Watcher</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> id = watcher.id</div><div class="line">  <span class="keyword">if</span> (has[id] == <span class="literal">null</span>) &#123;    <span class="comment">// a*</span></div><div class="line">    has[id] = <span class="literal">true</span></div><div class="line">    <span class="keyword">if</span> (!flushing) &#123;        <span class="comment">// b*</span></div><div class="line">      queue.push(watcher)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">let</span> i = queue.length - <span class="number">1</span></div><div class="line">      <span class="keyword">while</span> (i &gt; index &amp;&amp; queue[i].id &gt; watcher.id) &#123;</div><div class="line">        i--</div><div class="line">      &#125;</div><div class="line">      queue.splice(i + <span class="number">1</span>, <span class="number">0</span>, watcher)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (!waiting) &#123;         <span class="comment">// c*</span></div><div class="line">      waiting = <span class="literal">true</span></div><div class="line">      <span class="comment">// ...</span></div><div class="line">      nextTick(flushSchedulerQueue)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>进入该方法后，首先使用一个名为 has 的 Map 来保证每一个 watcher 仅推入队列一次[a<em>]。<code>flushing</code> 这个标识符表示目前这个队列是否正在进行更新派发，如果是，那么将这个 id 对应的订阅者进行替换，如果已经路过这个 id，那么就立刻将这个 id 对应的 watcher 放在下一个排入队列[b</em>]。接下来根据<code>waiting</code> 这个标识符来表示当前是否正在对这个队列进行更新派发[c*]，如果没有的话，就可以调用 <a href="https://github.com/DQFE/vue/blob/dev/src/core/observer/scheduler.js#L71" target="_blank" rel="external"><code>nextTick(flushSchedulerQueue)</code></a> 方法进行真正的更新派发了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flushSchedulerQueue</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  flushing = <span class="literal">true</span></div><div class="line">  <span class="keyword">let</span> watcher, id</div><div class="line"></div><div class="line">  queue.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.id - b.id)</div><div class="line">  </div><div class="line">  <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; queue.length; index++) &#123;</div><div class="line">    watcher = queue[index]</div><div class="line">    <span class="keyword">if</span> (watcher.before) &#123;</div><div class="line">      watcher.before()</div><div class="line">    &#125;</div><div class="line">    id = watcher.id</div><div class="line">    has[id] = <span class="literal">null</span></div><div class="line">    watcher.run()</div><div class="line">    <span class="comment">// ...</span></div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这个方法首先对队列中的 watcher 按照其 id 进行了排序，排序的主要目的有三：</p>
+<ul>
+<li>组件的更新由父到子；因为父组件的创建过程是先于子的，所以 watcher 的创建也是先父后子，执行顺序也应该保持先父后子。</li>
+<li>用户的自定义 watcher 要优先于渲染 watcher 执行；因为用户自定义 watcher 是在渲染 watcher 之前创建的。</li>
+<li>如果一个组件在父组件的 watcher 执行期间被销毁，那么它对应的 watcher 执行都可以被跳过，所以父组件的 watcher 应该先执行。<br>排序结束之后，便对这个队列进行遍历，并执行<code>watcher.run()</code>方法去实现数据更新的通知，run方法的逻辑是：<ul>
+<li>新的值与老的值不同时会触发通知；</li>
+<li>但是当值是对象或者deep为true时无论如何都会进行通知</li>
+</ul>
+</li>
+</ul>
+<p>所以 watcher 有两个功能，一个是将属性的值进行更新，另一个就是可以执行 watch 中的回调函数 handler(newVal, oldVal)，这也是为何我们可以在 watcher 中拿到新旧两个值的原因。</p>
+<p>至此，数据的更新派发也通知到了各个组件，便又可以进行视图的更新渲染，收集依赖，派发更新……</p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2019/12/01/2019-12-01-Vue-source-code-reading-data-binding.html" data-id="ckghsl65a003b7f6qwjyntpn2" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/21/2019-12-21-clean-code-note.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Clean Code规范整理
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/03/22/2018-03-22-what-happend-during-opening-url.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">从输入URL到页面加载发生了什么之进阶篇</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>EggJS源码阅读-启动流程与代码实现 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="egg是阿里开源的一个框架，为企业级框架和应用而生，相较于express和koa，有更加严格的目录结构和规范。不同的团队可以基于egg，根据自己的需求封装出适合团队业务的更上层框架。  egg如何启动 根据package.json中的script命令，可以看到执行的直接是egg-bin dev的命令。找到egg-bin文件夹中的dev.js,会看到里面会去执行外层的start-cluster文件">
+<meta name="keywords" content="JavaScript,源码学习,EggJS,NodeJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EggJS源码阅读-启动流程与代码实现">
+<meta property="og:url" content="http://keefe.wang/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="egg是阿里开源的一个框架，为企业级框架和应用而生，相较于express和koa，有更加严格的目录结构和规范。不同的团队可以基于egg，根据自己的需求封装出适合团队业务的更上层框架。  egg如何启动 根据package.json中的script命令，可以看到执行的直接是egg-bin dev的命令。找到egg-bin文件夹中的dev.js,会看到里面会去执行外层的start-cluster文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiJiMzZlODM2OS0xNzY1LTQzOTEtOTAzOC0zN2Q0NmE0NWVjNjAifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiI3ZmViNGFmYS1kMzNlLTQ1MDgtYjAyNi0wYWIyOGRkMDc2Y2MifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiI0MDczM2IwZi04OTc0LTQxNzctYjM4Zi0zN2I0MTE3ZGQ2MjAifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiJmMTAwMWJlZi05OWMwLTQ3Y2MtYjk3NS1kYmZiNjI1N2VkNjMifQ==">
+<meta property="og:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiIwZGM3ZmY3Mi1iZjM1LTQzZDMtODE1Ni0wMDk2YmQyY2FiMDUifQ==">
+<meta property="og:updated_time" content="2020-10-20T09:44:35.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EggJS源码阅读-启动流程与代码实现">
+<meta name="twitter:description" content="egg是阿里开源的一个框架，为企业级框架和应用而生，相较于express和koa，有更加严格的目录结构和规范。不同的团队可以基于egg，根据自己的需求封装出适合团队业务的更上层框架。  egg如何启动 根据package.json中的script命令，可以看到执行的直接是egg-bin dev的命令。找到egg-bin文件夹中的dev.js,会看到里面会去执行外层的start-cluster文件">
+<meta name="twitter:image" content="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiJiMzZlODM2OS0xNzY1LTQzOTEtOTAzOC0zN2Q0NmE0NWVjNjAifQ==">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2020-05-30-source-code-reading-Egg-starting" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            EggJS源码阅读-启动流程与代码实现
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html">
+            <time datetime="2020-01-12T04:30:00.000Z" itemprop="datePublished">2020-01-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/SourceCodeReading/">SourceCodeReading</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/EggJS/">EggJS</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/NodeJS/">NodeJS</a>, <a class="tag-link" href="/tags/源码学习/">源码学习</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <blockquote>
+<p>egg是阿里开源的一个框架，为企业级框架和应用而生，相较于express和koa，有更加严格的目录结构和规范。不同的团队可以基于egg，根据自己的需求封装出适合团队业务的更上层框架。</p>
+</blockquote>
+<h3 id="egg如何启动"><a href="#egg如何启动" class="headerlink" title="egg如何启动"></a>egg如何启动</h3><p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiJiMzZlODM2OS0xNzY1LTQzOTEtOTAzOC0zN2Q0NmE0NWVjNjAifQ==" alt="fca8379caeffb9c194aa5369db1c563b.png"></p>
+<p>根据<code>package.json</code>中的<code>script</code>命令，可以看到执行的直接是<code>egg-bin dev</code>的命令。找到<code>egg-bin</code>文件夹中的<code>dev.js</code>,会看到里面会去执行外层的<code>start-cluster</code>文件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">require(options.framework).startCluster(options);</div></pre></td></tr></table></figure>
+<p>此处的<code>options.framework</code>其实指的就是<code>egg</code>框架，然后调用了<code>egg-cluster</code>包中的<code>startCluster</code>方法，egg正式迈出了启动的第一步。</p>
+<p>[源码流程]</p>
+<p><code>egg</code>框架采用了<code>master-agent-worder</code>的集群模式，如果所示，官方文档中也对于这三种进程的启动和通信给出了较为详细的说明：</p>
+<ul>
+<li>Master 启动后先 fork Agent 进程</li>
+<li>Agent 初始化成功后，通过 IPC 通道通知 Master</li>
+<li>Master 再 fork 多个 App Worker</li>
+<li>App Worker 初始化成功，通知 Master</li>
+<li>所有的进程初始化成功后，Master 通知 Agent 和 Worker 应用启动成功</li>
+</ul>
+<p>我们尝试从源码中大致将这个流程实现出来：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// egg-cluster/lib/master.js</span></div><div class="line">ready.mixin(<span class="keyword">this</span>);              <span class="comment">// 将 ready 方法挂在 Master 上</span></div><div class="line"><span class="keyword">this</span>.detectPorts().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;  <span class="comment">// 检测端口</span></div><div class="line">    <span class="keyword">this</span>.forkAgentWorker();      <span class="comment">// 启动 agent 进程，发送 agent-start 消息给 master 进程</span></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// master 进程一旦接收到 agent-start 消息后，开始创建 worker 进程</span></div><div class="line"><span class="keyword">this</span>.once(<span class="string">'agent-start'</span>, <span class="keyword">this</span>.forkAppWorkers.bind(<span class="keyword">this</span>));</div></pre></td></tr></table></figure>
+<p>[源码流程]</p>
+<h3 id="Agent与AppWorker的实现"><a href="#Agent与AppWorker的实现" class="headerlink" title="Agent与AppWorker的实现"></a>Agent与AppWorker的实现</h3><h4 id="AgentWorker与AppWorker进程的启动"><a href="#AgentWorker与AppWorker进程的启动" class="headerlink" title="AgentWorker与AppWorker进程的启动"></a>AgentWorker与AppWorker进程的启动</h4><p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiI3ZmViNGFmYS1kMzNlLTQ1MDgtYjAyNi0wYWIyOGRkMDc2Y2MifQ==" alt="de59fd88a438492231f38fb2032ffd5b.png"></p>
+<p>在启动<code>AgentWorker</code>和<code>AppWorker</code>时，会分别加载<code>agent_worker.js</code>和<code>app_worker.js</code>两个文件并创建进程，其中<code>agent_worker.js</code>中会创建<code>Agent</code>类的实例，而<code>app_worker.js</code>中会创建<code>Application</code>类的实例。</p>
+<p>两种进程在启动时都会调用<code>this.loader.load()</code>方法来加载自己相应的一些插件和自定义的扩展。</p>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiI0MDczM2IwZi04OTc0LTQxNzctYjM4Zi0zN2I0MTE3ZGQ2MjAifQ==" alt="18d21732106d0293791bf03d6481784b.png"></p>
+<p>基于<code>egg_loader</code>实现了<code>AppWorkerLoader</code>和 <code>AgentWorkerLoader</code>，上层框架基于这两个类来扩展，<code>Loader</code>的扩展只能在框架进行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; AppWorkerLoader &#125; <span class="keyword">from</span> <span class="string">'egg'</span></div><div class="line"><span class="keyword">import</span> common <span class="keyword">from</span> <span class="string">'./common'</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAppWorkerLoader</span> <span class="keyword">extends</span> <span class="title">AppWorkerLoader</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(opt) &#123;</div><div class="line">    <span class="keyword">super</span>(opt);</div><div class="line">        <span class="comment">// 自定义初始化</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    loadConfig() &#123;</div><div class="line">        <span class="keyword">super</span>.loadConfig();</div><div class="line">        <span class="comment">// 对 config 进行处理</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    load() &#123;</div><div class="line">        <span class="keyword">super</span>.load();</div><div class="line">        <span class="comment">// 自定义加载其他目录</span></div><div class="line">        <span class="comment">// 或对已加载的文件进行处理</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">Object</span>.assign(MyAppWorkerLoader.prototype, &#123;</div><div class="line">    <span class="comment">// 可以根据自己的需求，重写一些获取配置的方法</span></div><div class="line">    getServerEnv()&#123;&#125;;</div><div class="line">    _preloadAppConfig()&#123;&#125;</div><div class="line">    getTypeFiles()&#123;&#125;</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyAppWorkerLoader</div></pre></td></tr></table></figure>
+<h4 id="Agent如何实现"><a href="#Agent如何实现" class="headerlink" title="Agent如何实现"></a>Agent如何实现</h4><p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiJmMTAwMWJlZi05OWMwLTQ3Y2MtYjk3NS1kYmZiNjI1N2VkNjMifQ==" alt="f2ac3732452f487f21e11c0de480f3df.png"></p>
+<p><code>Agent</code>对象在<code>egg-cluster</code>创建环节中被创建出来，继承自<code>egg.Agent</code>对象，该对象继承<code>EggApplication</code>,且<code>loader</code>为<code>./lib/loader/agent_worker_loader.js</code>文件，继承自<code>egg-core.eggLoader</code>对象，整体继承链如上图。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// egg/lib/agent.js</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Agent</span> <span class="keyword">extends</span> <span class="title">EggApplication</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(options = &#123;&#125;) &#123;</div><div class="line">    options.type = <span class="string">'agent'</span>;</div><div class="line">    <span class="comment">// 1.完成父类构建</span></div><div class="line">    <span class="keyword">super</span>(options);</div><div class="line">    <span class="comment">// 2.驱动loader执行load方法</span></div><div class="line">    <span class="keyword">this</span>.loader.load();</div><div class="line">    <span class="comment">// 3.dump相关配置文件进入./run目录下</span></div><div class="line">    <span class="keyword">this</span>.dumpConfig();</div><div class="line">    </div><div class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;, <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>);</div><div class="line">    <span class="comment">// 4.监听异常事件</span></div><div class="line">    <span class="keyword">this</span>._uncaughtExceptionHandler = <span class="keyword">this</span>._uncaughtExceptionHandler.bind(<span class="keyword">this</span>);</div><div class="line">    process.on(<span class="string">'uncaughtException'</span>, <span class="keyword">this</span>._uncaughtExceptionHandler);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>Agent</code>类的实现中，主要是实例化了<code>EggApplication</code>，调用了<code>this.loader.load()</code>方法来加载各种文件和配置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// egg/lib/egg.js</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EggApplication</span> <span class="keyword">extends</span> <span class="title">EggCore</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(options = &#123;&#125;) &#123;</div><div class="line">        options.mode = options.mode || <span class="string">'cluster'</span>;</div><div class="line">        <span class="comment">// 1.原型EggCore构建</span></div><div class="line">        <span class="keyword">super</span>(options);</div><div class="line">        <span class="comment">// 2.调用loadConfig，在agent的实现中，指向的并不是egg-core.loader，而是agent_worker_loader</span></div><div class="line">        <span class="keyword">this</span>.loader.loadConfig();</div><div class="line">        <span class="comment">// 3.ready事件</span></div><div class="line">        <span class="keyword">this</span>.ready(<span class="function"><span class="params">()</span> =&gt;</span> process.nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">          <span class="keyword">const</span> dumpStartTime = <span class="built_in">Date</span>.now();</div><div class="line">          <span class="keyword">this</span>.dumpConfig();</div><div class="line">          <span class="keyword">this</span>.dumpTiming();</div><div class="line">        &#125;));</div><div class="line">        <span class="comment">// 监听unhandleRejection事件</span></div><div class="line">        <span class="comment">// 4.cluster初始化</span></div><div class="line">        <span class="keyword">this</span>[CLUSTER_CLIENTS] = [];</div><div class="line">        <span class="keyword">this</span>.cluster = <span class="function">(<span class="params">clientClass, options</span>) =&gt;</span> &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在<code>EggApplication</code>类的实现中，我们可以看到是继承自<code>EggCore</code>类，在父类构建好之后，会调用<code>this.loader.loadConfig()</code>方法，该方法的<code>loader</code>实例实际指向了<code>AgentWorkerLoader（agent_worker_loader.js）</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// egg/lib/loader/agent_worker_loader.js</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AgentWorkerLoader</span> <span class="keyword">extends</span> <span class="title">EggLoader</span> </span>&#123;</div><div class="line">  loadConfig() &#123;</div><div class="line">    <span class="keyword">this</span>.loadPlugin();  <span class="comment">// loadPlugin from egg-core/lib/loader/mixin/plgin.js</span></div><div class="line">    <span class="keyword">super</span>.loadConfig(); <span class="comment">// loadConfig from egg-core/lib/loader/mixin/config.js</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  load() &#123;</div><div class="line">    <span class="keyword">this</span>.loadAgentExtend();</div><div class="line">    <span class="keyword">this</span>.loadContextExtend();</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.loadCustomAgent();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>loadPlugin</code>方法会加载三种插件：</p>
+<ul>
+<li><code>eggPlugins</code>，从eggjs框架配置的插件，也就是<code>egg/config/plugins.js</code>文件中egg框架自带的插件；</li>
+<li><code>appPlugins</code>，每个应用自己配置的插件，也就是<code>myproject/config/plugins.js</code>，用户可以自定义配置一些特殊的插件；</li>
+<li><code>customPlugins</code>，应用启动命令中参数EGG_PLUGINS值所代表的插件；</li>
+</ul>
+<p>最后会将这三种插件都挂在app实例上：<code>this.plugins = enablePlugins</code>;</p>
+<p><code>loadConfig</code>方法会加载三种配置：</p>
+<ul>
+<li><code>appConfig</code>，每个应用自己独有的配置，其中会按顺序加载两个配置，一个是默认配置<code>config.default</code>，另一个是当前环境的配置<code>config.${this.serverEnv}</code>，也就是<code>myproject/config</code>下的一些配置文件加载</li>
+<li>加载自定义添加的<code>plugin</code>插件的配置</li>
+<li>加载框架<code>egg</code>的配置，即<code>egg/config</code></li>
+<li>重新加载应用<code>app</code>的配置，即<code>myproject/config</code>下的</li>
+</ul>
+<p>最后将合并的配置挂载在<code>app</code>实例上<code>this.config = target</code>;</p>
+<h4 id="Application如何实现"><a href="#Application如何实现" class="headerlink" title="Application如何实现"></a>Application如何实现</h4><p>上面提到，<code>AppWorker</code>在实例化的过程中，会调用<code>this.loader.load()</code>。进入具体这个<code>Application</code>所对应的<code>loader.load</code>方法，可以发现<code>Application</code>的实现比<code>Agent</code>的实现多调用了很多加载的方法：</p>
+<ul>
+<li><code>this.loadApplicationExtend();</code>，该方法的调用会给应用加载扩展方法，加载路径为<code>app\extend\application.js</code>, 会将对应的对象挂载在app 应用上。</li>
+<li><code>this.loadRequestExtend();</code>，加载<code>app\extend\request.js</code></li>
+<li><code>this.loadResponseExtend();</code>，加载<code>app\extend\response.js</code></li>
+<li><code>this.loadContextExtend();</code>，加载<code>app\extend\context.js</code></li>
+<li><code>this.loadHelperExtend();</code>，加载<code>app\extend\helper.js</code></li>
+<li><code>this.loadService()</code></li>
+<li><code>this.loadMiddleware()</code></li>
+<li><code>this.loadController()</code></li>
+<li><code>this.loadRouter()</code></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>egg启动服务集群，采用了<code>master-agent-worker</code>模式，<code>AgentWorker</code>和<code>AppWorker</code>都由Application(egg/lib/applicaton.js) -&gt; EggApplication(egg/lib/egg.js) -&gt; EggCore(egg-core/lib/egg.js) -&gt; KoaApplication(koa)原型链进行继承</p>
+</li>
+<li><p><code>Agent</code>和<code>Application</code>在实例化的过程中，都会调用相应的Loader去加载自己所需的插件和配置，且加载顺序严格按照<strong>插件plugin-框架framework-应用application</strong>这样一个顺序</p>
+</li>
+</ol>
+<p><img src="https://app.yinxiang.com/files/common-services/binary-datas/c2VydmljZVR5cGU9MiZzZXJ2aWNlRGF0YT17Im5vdGVHdWlkIjoiZDc4MmQxN2MtM2FjYS00MDZhLTk4MDktOGRmMzMwY2M3ZGQxIiwicmVzb3VyY0d1aWQiOiIwZGM3ZmY3Mi1iZjM1LTQzZDMtODE1Ni0wMDk2YmQyY2FiMDUifQ==" alt="0464781205f05b89c1b8807280114dd8.png"></p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2020/01/12/2020-05-30-source-code-reading-Egg-starting.html" data-id="ckghsl65s003t7f6qq5e20uss" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2020/01/12/2020-03-05-source-code-reading-express-router.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Express源码阅读-router相关
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/01/12/2020-01-12-Javascript-module-history.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">JavaScript模块化</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
