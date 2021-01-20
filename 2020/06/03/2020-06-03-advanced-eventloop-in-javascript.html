@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>JavaScript 基于事件循环的并发模型 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="runtime（运行时刻）是指一个程序在运行的状态。JavaScript 的运行时刻有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。  JavaScript 中的函数调用会形成一个由若干帧组成的栈，当一个函数中存在闭包函数时，外层函数会先压入栈中，其中包含参数和局部变量；闭包函数跟着压入栈中，也包含了自己的参数和局部变量。闭包函数先从栈中弹出，执行完了之后">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 基于事件循环的并发模型">
+<meta property="og:url" content="http://keefe.wang/2020/06/03/2020-06-03-advanced-eventloop-in-javascript.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="runtime（运行时刻）是指一个程序在运行的状态。JavaScript 的运行时刻有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。  JavaScript 中的函数调用会形成一个由若干帧组成的栈，当一个函数中存在闭包函数时，外层函数会先压入栈中，其中包含参数和局部变量；闭包函数跟着压入栈中，也包含了自己的参数和局部变量。闭包函数先从栈中弹出，执行完了之后">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://keefe.wang/2020/06/03/JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/The_Javascript_Runtime_Environment_Example.svg">
+<meta property="og:image" content="http://keefe.wang/2020/06/03/JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1.png">
+<meta property="og:image" content="http://keefe.wang/2020/06/03/JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%201.png">
+<meta property="og:image" content="http://keefe.wang/2020/06/03/JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%202.png">
+<meta property="og:updated_time" content="2021-01-20T01:46:35.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 基于事件循环的并发模型">
+<meta name="twitter:description" content="runtime（运行时刻）是指一个程序在运行的状态。JavaScript 的运行时刻有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。  JavaScript 中的函数调用会形成一个由若干帧组成的栈，当一个函数中存在闭包函数时，外层函数会先压入栈中，其中包含参数和局部变量；闭包函数跟着压入栈中，也包含了自己的参数和局部变量。闭包函数先从栈中弹出，执行完了之后">
+<meta name="twitter:image" content="http://keefe.wang/2020/06/03/JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/The_Javascript_Runtime_Environment_Example.svg">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2020-06-03-advanced-eventloop-in-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            JavaScript 基于事件循环的并发模型
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/06/03/2020-06-03-advanced-eventloop-in-javascript.html">
+            <time datetime="2020-06-03T08:31:00.000Z" itemprop="datePublished">2020-06-03</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <p>runtime（运行时刻）是指一个程序在运行的状态。JavaScript 的运行时刻有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。</p>
+<p><img src="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/The_Javascript_Runtime_Environment_Example.svg" alt="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/The_Javascript_Runtime_Environment_Example.svg"></p>
+<p>JavaScript 中的函数调用会形成一个由若干帧组成的栈，当一个函数中存在闭包函数时，外层函数会先压入栈中，其中包含参数和局部变量；闭包函数跟着压入栈中，也包含了自己的参数和局部变量。闭包函数先从栈中弹出，执行完了之后外层函数从栈中弹出执行，栈就被清空了。</p>
+<p>对象是被分配在堆中。</p>
+<p>一个 JavaScript 运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理这个消息的回调函数。</p>
+<h3 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (queue.waitForMessage()) &#123;</div><div class="line">  queue.processNextMessage();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>JavaScript 中每一个函数都是需要完整执行完成才会继续进行下一步（单线程语言：one thread ⇒ one call stack ⇒ one thing at a time），所以 JavaScript 的代码很容易出现一个函数执行时间过长的情况。为了实现程序的并发执行，JavaScript 引入了事件循环机制。</p>
+<p>在上面所提到的函数调用栈之外，还会有一个任务队列。当 runtime 执行代码过程中遇到了像 setTimeout 或 DOM 事件绑定的回调函数，会首先调用 WebAPIs 去进行执行——例如 setTimeout 会产生一个 timer 计时器，当计时器到达指定时间后，会将这个事件推入任务队列。任务队列就是由一个个异步操作的回调函数所组成的队列。事件循环简单来说就是：当 runtime 函数调用栈清空后，查看当前任务队列，并把队列第一个任务压入 runtime 函数调用栈。</p>
+<p>浏览器的 render 刷新最快是 16.6ms 一次（浏览器刷新一般是 60次/s ），这是在主线程为空的时候（所以任务队列里的任务是不会阻塞浏览器渲染的）。<strong>如果想在浏览器渲染任务队列中添加任务，可以使用 requestAnimationFrame(callback)方法来进行添加</strong>。如果函数调用栈不为空，则 render 会被阻塞：主线程中的死循环会阻塞浏览器渲染，但是看下面的代码： </p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	setTimeout(loop, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line">loop();</div></pre></td></tr></table></figure>
+<p>这个无限自我递归调用也会形成一个循环，但是由于 setTimeout 方法只是不停地往任务队列里面添加任务，而主线程还是每次取一个任务去执行，主线程不会被阻塞，所以浏览器渲染也不会被阻塞。</p>
+<p>到目前为止，在事件循环中，我们认识到了主线程、任务队列和渲染任务队列。当主线程任务全部执行完成清空后，会从非空的任务队列中拿第一个任务到主线程尽心执行，每次循环都是只取一个任务队列中的任务。而渲染任务则是一次性执行完成的。</p>
+<p><img src="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1.png" alt="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1.png"></p>
+<p>实际上，浏览器总还有一个 microTask queue，这个队列中一般我们遇到的 99.9% 应该都是以 promise 形式出现的，microTask 执行的时间是每一段 JS 代码执行完毕（主线程任务清空、任务队列取得第一个任务到主线程并执行完、浏览器渲染任务执行完）都会进行执行，而且一旦执行，microTask queue 中无论有多少个任务（包括同时添加进来的任务）都会一直执行完。所以，microTask queue 是会产生阻塞的。</p>
+<p><img src="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%201.png" alt="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%201.png"></p>
+<p>如上图所示，我们所知的浏览器的事件循环有以下的几种队列机制：</p>
+<ul>
+<li><p>主线程任务队列</p>
+<p>  接受 JS 程序中按顺序的同步任务，在每次事件循环中都会执行任务直至队列清空</p>
+</li>
+<li><p>异步回调任务队列</p>
+<p>  接受像 setTimeout、ajax 等的异步回调函数任务，在每次时间循环中主线程任务队列清空后，会拿出该队列的头部任务放入主线程进行执行</p>
+</li>
+<li><p>microtask 任务队列</p>
+<p>  接受 promise.then 的回调函数任务，在事件循环中，每一段 JS 代码执行完毕（主线程任务清空、任务队列取得第一个任务到主线程并执行完、浏览器渲染任务执行完）都会执行，且每次执行都会将该队列清空，包括同时入队的任务也会一并清空</p>
+</li>
+<li><p>动画帧回调任务队列</p>
+<p>  接受 requestAnimationFrame 的回调函数任务，在每次浏览器渲染任务执行之前进行执行（目前仅在 chrome 中是该顺序），每次执行都清空当前队列，如有新的任务添加则等待下次渲染前执行</p>
+</li>
+<li><p>浏览器渲染任务队列</p>
+<p>  每当上面主线程、异步任务队列、microTask 任务队列执行完毕，且距离上一次渲染时长大于 16.6ms 时，就会进行任务执行，每一次执行都会将当前队列任务全部执行完毕</p>
+</li>
+</ul>
+<p>用一个伪代码来进行上面流程的表述，如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">	<span class="keyword">while</span> (mainThread.hasTasks()) &#123;</div><div class="line">		execute(mainThread.getNextTask());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	queue = getNextQueue();</div><div class="line">	task = queue.pop();</div><div class="line">	execute(task);</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(microTask.hasTasks()) &#123;</div><div class="line">		doMicroTask();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> (isRepaintTime()) &#123;</div><div class="line">		animationTasks = animationQueue.copyTasks();</div><div class="line">		<span class="keyword">for</span> (task <span class="keyword">in</span> animationTasks) &#123;</div><div class="line">			doAnimationTask();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	repaint()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Node-中的事件循环"><a href="#Node-中的事件循环" class="headerlink" title="Node 中的事件循环"></a>Node 中的事件循环</h3><p>NodeJS 的事件循环基本上与浏览器中的事件循环是一致的，只不过浏览器使用的是 WebAPIs，而 NodeJS 中使用的是 C++ APIs。</p>
+<p><img src="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%202.png" alt="JavaScript%20%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B%20b0cfb1289e8e4098b7cae991e050b301/_1%202.png"></p>
+<p>主线程与异步任务队列执行以及 microTask 任务队列都与浏览器中的事件循环相同，我们可以看到上图中多了三个没有见到过的任务队列：</p>
+<ul>
+<li><p>check phase 任务队列</p>
+<p>  接受使用 setImmediate 方法传入的回调函数任务，每次在异步任务队列执行完成后，清空该队列</p>
+</li>
+<li><p>timer phase 任务队列</p>
+<p>  接受 setTimeout、setInterval 传入的回调函数，每次在 check phase 任务队列清空后，清空该任务队列</p>
+</li>
+<li><p>nextTick 任务队列</p>
+<p>  与 microTask 任务队列相同， 接受 process.nextTick 传入的回调函数，该队列优先级高于 microTask </p>
+</li>
+</ul>
+<p>用伪代码进行上述流程的模拟，如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (tasksAreWaiting()) &#123;</div><div class="line">	queue = getNextQueue();</div><div class="line">	<span class="keyword">while</span> (queue.hasTasks()) &#123;</div><div class="line">		task = queue.pop();</div><div class="line">		execute(task);</div><div class="line">		</div><div class="line">		<span class="keyword">while</span> (nextTickQueue.hasTasks()) &#123;</div><div class="line">			doNextTickTask();</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="keyword">while</span> (promiseQueue.hasTasks()) &#123;</div><div class="line">			doPromiseTask();</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2020/06/03/2020-06-03-advanced-eventloop-in-javascript.html" data-id="ckk4rkqby0034ym90iwupy2ke" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2020/07/22/2020-07-22-things-need-to-be-aware-of-in-vue.html" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Vue 中容易被忽视的小功能
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/05/23/2020-05-30-source-code-reading-Egg-starting.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">EggJS源码阅读-启动流程与代码实现</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2021 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

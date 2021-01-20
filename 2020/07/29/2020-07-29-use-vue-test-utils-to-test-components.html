@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>使用 vue-test-utils 进行测试 | Lynx-Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="插件安装我们使用 Vue CLI 脚手架进行项目的创建，按照提示一步步进行项目配置，尽量都选择无任何配置，尤其是自带的测试插件： 1vue create vue-test 新建好项目之后，我们需要在项目根目录下新建一个 test 目录来放置我们的测试文件。 由于我们是在 Vue 项目中进行测试，采用的是 vue-test-utils 这个测试工具插件进行测试，所以下面几类 npm 插件是必须要安装">
+<meta name="keywords" content="JavaScript,Vue,Test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 vue-test-utils 进行测试">
+<meta property="og:url" content="http://keefe.wang/2020/07/29/2020-07-29-use-vue-test-utils-to-test-components.html">
+<meta property="og:site_name" content="Lynx-Blog">
+<meta property="og:description" content="插件安装我们使用 Vue CLI 脚手架进行项目的创建，按照提示一步步进行项目配置，尽量都选择无任何配置，尤其是自带的测试插件： 1vue create vue-test 新建好项目之后，我们需要在项目根目录下新建一个 test 目录来放置我们的测试文件。 由于我们是在 Vue 项目中进行测试，采用的是 vue-test-utils 这个测试工具插件进行测试，所以下面几类 npm 插件是必须要安装">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-20T01:47:47.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 vue-test-utils 进行测试">
+<meta name="twitter:description" content="插件安装我们使用 Vue CLI 脚手架进行项目的创建，按照提示一步步进行项目配置，尽量都选择无任何配置，尤其是自带的测试插件： 1vue create vue-test 新建好项目之后，我们需要在项目根目录下新建一个 test 目录来放置我们的测试文件。 由于我们是在 Vue 项目中进行测试，采用的是 vue-test-utils 这个测试工具插件进行测试，所以下面几类 npm 插件是必须要安装">
+    
+
+    
+        <link rel="alternate" href="/" title="Lynx-Blog" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="progress">
+        <span></span>
+    </div>
+
+    <div id="container">
+
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Lynx-Blog</span>
+            </a>
+
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+
+            <!---->
+
+        </div>
+    </div>
+
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</header>
+
+
+            <section class="outer">
+    <article id="post-2020-07-29-use-vue-test-utils-to-test-components" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            使用 vue-test-utils 进行测试
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/07/29/2020-07-29-use-vue-test-utils-to-test-components.html">
+            <time datetime="2020-07-29T14:23:00.000Z" itemprop="datePublished">2020-07-29</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/Test/">Test</a>, <a class="tag-link" href="/tags/Vue/">Vue</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            
+            <h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><p>我们使用 Vue CLI 脚手架进行项目的创建，按照提示一步步进行项目配置，尽量都选择无任何配置，尤其是自带的测试插件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vue create vue-test</div></pre></td></tr></table></figure>
+<p>新建好项目之后，我们需要在项目根目录下<strong>新建一个 test 目录</strong>来放置我们的测试文件。</p>
+<p>由于我们是在 Vue 项目中进行测试，采用的是 vue-test-utils 这个测试工具插件进行测试，所以下面几类 npm 插件是必须要安装的：</p>
+<ul>
+<li><p>jest 相关</p>
+<p>  jest 是 vue-test-utils 官方推荐的测试运行器，所以这个插件是必要的；要使用 jest 来处理 *.vue 文件，需要安装和配置 vue-jest 插件。</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i --save-dev jest vue-jest</div></pre></td></tr></table></figure>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在 package.json 中做如下配置</span></div><div class="line">&#123;</div><div class="line">	<span class="string">"scripts"</span>: &#123;</div><div class="line">		<span class="string">"test"</span>: <span class="string">"jest"</span></div><div class="line">	&#125;,</div><div class="line">	<span class="string">"jest"</span>: &#123;</div><div class="line">    <span class="string">"moduleFileExtensions"</span>: [</div><div class="line">      <span class="string">"js"</span>,</div><div class="line">      <span class="string">"json"</span>,</div><div class="line">      <span class="string">"vue"</span></div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>babel 相关</p>
+<p>  我们一般都不可避免地希望在代码中使用 ES2015 的特性，这时我们需要安装 babel 相关的插件，其中 babel-jest 是测试中的 ES2015 特性编译的插件</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev babel-core babel-preset-env babel-jest</div></pre></td></tr></table></figure>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在 package.json 中做如下配置</span></div><div class="line">&#123;</div><div class="line">	<span class="string">"jest"</span>: &#123;</div><div class="line">		<span class="string">"transform"</span>: &#123;</div><div class="line">      <span class="string">".*\\.(vue)$"</span>: <span class="string">"vue-jest"</span>,</div><div class="line">      <span class="string">"^.+\\.js$"</span>: <span class="string">"&lt;rootDir&gt;/node_modules/babel-jest"</span></div><div class="line">    &#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在 .babelrc 或 babel.config.js 文件中做如下配置</span></div><div class="line">&#123;</div><div class="line">  <span class="string">"presets"</span>: [[<span class="string">"env"</span>, &#123; <span class="string">"modules"</span>: <span class="literal">false</span> &#125;]],</div><div class="line">  <span class="string">"env"</span>: &#123;</div><div class="line">    <span class="string">"test"</span>: &#123;</div><div class="line">      <span class="string">"presets"</span>: [[<span class="string">"env"</span>, &#123; <span class="string">"targets"</span>: &#123; <span class="string">"node"</span>: <span class="string">"current"</span> &#125; &#125;]]</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>vue-test-utils 依赖浏览器环境，我们使用 JSDOM 在 Node 虚拟浏览器环境运行测试。jest 中有自动设置 JSDOM，如果没有，需要安装以下插件</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev jsdom jsdom-global</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>至此，所以前期的插件安装和配置工作就完成了。这时，我们在 test 目录下新建一个 *.test.js 文件，并在 terminal 中运行 npm run test 命令，就可以进行 vue 组件的测试了。</p>
+
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2020/07/29/2020-07-29-use-vue-test-utils-to-test-components.html" data-id="ckk4rkqc7003fym90d2010o10" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2020/07/23/2020-07-23-advanced-function-in-vue.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Vue 高级用法与精粹</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+</section>
+
+
+        <footer id="footer" class="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2021 Keefe Wang<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/sanfran1068">Keefe</a>
+        </div>
+    </div>
+</footer>
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
