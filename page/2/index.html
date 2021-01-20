@@ -268,7 +268,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2018/03/22/2018-03-22-what-happend-during-opening-url.html" data-id="ckk4rkqc8003jym90pksfnbed" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2018/03/22/2018-03-22-what-happend-during-opening-url.html" data-id="ckk4rtiid001afv906oymf87g" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -401,7 +401,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html" data-id="ckk4rkqal002hym90b2255t41" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/10/10/2017-10-10-The-Good-Part-of-JavaScripts-The-Good-Part.html" data-id="ckk4rtike005wfv90qnln7927" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -534,7 +534,140 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/10/08/2017-10-08-shape-grammar-learning-notes.html" data-id="ckk4rkqan002jym9036sk9goi" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/10/08/2017-10-08-shape-grammar-learning-notes.html" data-id="ckk4rtii6000xfv90a4kyrz76" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    
+</article>
+
+        
+            <article id="post-2017-09-21-babel-document-study" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        <div class="article-corner"></div>
+        
+
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/09/21/2017-09-21-babel-document-study.html">Babel的使用方法</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/09/21/2017-09-21-babel-document-study.html">
+            <time datetime="2017-09-21T04:00:00.000Z" itemprop="datePublished">2017-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Document/">Document</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Babel/">Babel</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+
+        
+            <p><p>Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</p></p>
+            <p class="article-more-link">
+                <a href="/2017/09/21/2017-09-21-babel-document-study.html#more">查看更多</a>
+            </p>
+        
+        </div>
+
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html" data-id="ckk4rtii3000rfv90e6ttj5bc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -677,140 +810,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/09/21/2017-10-05-http-primary-knowledge-in-Frontend.html" data-id="ckk4rkqac002aym90tguhp8yr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    
-</article>
-
-        
-            <article id="post-2017-09-21-babel-document-study" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        <div class="article-corner"></div>
-        
-
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/09/21/2017-09-21-babel-document-study.html">Babel的使用方法</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/09/21/2017-09-21-babel-document-study.html">
-            <time datetime="2017-09-21T04:00:00.000Z" itemprop="datePublished">2017-09-21</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Document/">Document</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Babel/">Babel</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/tags/基础知识/">基础知识</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-
-        
-
-        <div class="article-entry" itemprop="articleBody">
-
-        
-            <p><p>Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</p></p>
-            <p class="article-more-link">
-                <a href="/2017/09/21/2017-09-21-babel-document-study.html#more">查看更多</a>
-            </p>
-        
-        </div>
-
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://keefe.wang/2017/09/21/2017-09-21-babel-document-study.html" data-id="ckk4rkqae002dym90ft79hxey" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/09/21/2017-10-05-http-primary-knowledge-in-Frontend.html" data-id="ckk4rtii80010fv902rtaf7o1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -943,7 +943,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html" data-id="ckk4rkq9n001rym90q1ah4tjj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/08/02/2017-05-10-LESS-document-note.html" data-id="ckk4rtii2000ofv90gknvdh3j" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1076,7 +1076,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html" data-id="ckk4rkqaa0026ym90r6zdkop0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/08/02/2017-08-02-ES6-Must-Know-Keypoint-Note.html" data-id="ckk4rtii4000ufv90305w1bah" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1210,7 +1210,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html" data-id="ckk4rkq9z001uym901huoyf3h" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/06/12/2017-06-12-using-leaflet-to-load-map.html" data-id="ckk4rtii1000lfv90k48zemmr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1344,7 +1344,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html" data-id="ckk4rkq9l001pym904b7s7gtg" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/05/09/2017-04-15-Online-Javascript-Interpreter-IJavascript.html" data-id="ckk4rtihz000jfv90mxkaygsf" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1482,7 +1482,7 @@
 
 </div>
 
-    <a data-url="http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" data-id="ckk4rkqa80025ym90aptav8vc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://keefe.wang/2017/05/09/2017-05-08-JavaScript-Professional-JavaScript-for-Web-Developer-notebook.html" data-id="ckk4rtiip001qfv90enayvmd8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

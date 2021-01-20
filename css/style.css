@@ -304,32 +304,32 @@ code {
 .article-entry h1,
 .widget h1,
 .about h1 {
-  font-size: 4em;
+  font-size: 3em;
 }
 .article-entry h2,
 .widget h2,
 .about h2 {
-  font-size: 3em;
+  font-size: 2.4em;
 }
 .article-entry h3,
 .widget h3,
 .about h3 {
-  font-size: 2.6em;
+  font-size: 1.8em;
 }
 .article-entry h4,
 .widget h4,
 .about h4 {
-  font-size: 1.6em;
+  font-size: 1.2em;
 }
 .article-entry h5,
 .widget h5,
 .about h5 {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .article-entry h6,
 .widget h6,
 .about h6 {
-  font-size: 1em;
+  font-size: 0.8em;
   color: #999;
 }
 .article-entry hr,
