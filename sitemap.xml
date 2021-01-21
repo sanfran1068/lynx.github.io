@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://keefe.wang/2020/08/13/2020-08-13-translate-how-browser-renders-webpage.html</loc>
+    
+    <lastmod>2021-01-21T13:14:58.779Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://keefe.wang/2020/07/29/2020-07-29-use-vue-test-utils-to-test-components.html</loc>
     
     <lastmod>2021-01-20T01:47:47.848Z</lastmod>
@@ -198,14 +205,7 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/welcome/index.html</loc>
-    
-    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://keefe.wang/categories/index.html</loc>
+    <loc>http://keefe.wang/about/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
@@ -219,7 +219,14 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/about/index.html</loc>
+    <loc>http://keefe.wang/categories/index.html</loc>
+    
+    <lastmod>2017-10-09T07:13:05.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/welcome/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
