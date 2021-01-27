@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://keefe.wang/editor/index.html</loc>
+    
+    <lastmod>2021-01-27T03:03:56.331Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://keefe.wang/editor/index.html</loc>
+    
+    <lastmod>2021-01-27T02:25:01.914Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://keefe.wang/2020/08/13/2020-08-13-translate-how-browser-renders-webpage.html</loc>
     
-    <lastmod>2021-01-21T13:20:02.415Z</lastmod>
+    <lastmod>2021-01-21T13:21:25.611Z</lastmod>
     
   </url>
   
@@ -219,14 +233,14 @@
   </url>
   
   <url>
-    <loc>http://keefe.wang/tags/index.html</loc>
+    <loc>http://keefe.wang/welcome/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://keefe.wang/welcome/index.html</loc>
+    <loc>http://keefe.wang/tags/index.html</loc>
     
     <lastmod>2017-10-09T07:13:05.000Z</lastmod>
     
